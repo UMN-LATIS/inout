@@ -160,6 +160,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        StudentAffairsUwm\Shibboleth\ShibbolethServiceProvider::class,
+        StudentAffairsUwm\Shibboleth\ShibalikeServiceProvider::class,
+
     ],
 
     /*

@@ -2,8 +2,11 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use StudentAffairsUwm\Shibboleth\Entitlement;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -15,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'umndid', 'office','phone','calendar_link','sign_in','sign_out','message',
     ];
 
     /**
@@ -24,6 +27,46 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+         'remember_token',
     ];
+
+    protected $dates = [
+        'sign_in',
+        'sign_out',
+        'birthday',
+    ];
+
+    public function boards() {
+        return $this->belongsToMany("App\Board")->withPivot("is_admin","winner")->using('\App\BoardUserPivot');
+    }
+
+    public function signedIn() {
+        if($this->sign_in && $this->sign_in->isToday()){
+            if(!$this->sign_out || $this->sign_out < $this->sign_in) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function signedOut() {
+        if($this->sign_out && $this->sign_out->isToday()){
+            if(!$this->sign_in || $this->sign_in < $this->sign_out) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function signIn() {
+        $this->sign_out = null;
+        $this->sign_in = Carbon::now();
+    }
+
+    public function signOut() {
+        $this->sign_in = null;
+        $this->sign_out = Carbon::now();
+    }
+
+
 }

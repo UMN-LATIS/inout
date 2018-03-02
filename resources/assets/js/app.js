@@ -15,7 +15,16 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+Vue.component('users', require('./components/Users.vue'));
+Vue.component('inoutentry', require('./components/InoutEntry.vue'));
+
+import PrettyCheckbox from 'pretty-checkbox-vue';
+Vue.use(PrettyCheckbox);
+
+import VTooltip from 'v-tooltip'
+Vue.use(VTooltip)
 
 const app = new Vue({
     el: '#app'

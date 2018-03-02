@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::group(['prefix' => '{board}'], function () {
+	Route::model('user',\App\User::class);
+	Route::resource('inout', 'Api\InoutController', ['parameters' => ['inout'=>'user']]);
+	Route::put('/inout/{user}/toggleStatus', 'Api\InoutController@toggleStatus');
+
 });
