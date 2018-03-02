@@ -36,3 +36,6 @@ else {
 Route::group(['prefix' => '{board}'], function () {
 	Route::get('/', 'BoardController@index');
 });
+
+
+Route::resource('admin/boards', 'Admin\BoardsController');

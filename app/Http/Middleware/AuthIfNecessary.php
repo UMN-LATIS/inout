@@ -20,6 +20,9 @@ class AuthIfNecessary
     {
         if($request->board && is_object($request->board) && !$request->board->public) {
             Auth::authenticate();
+            if(!Auth::user()->boards->find($request->board->id)) {
+                abort(403);
+            }
         }
         return $next($request);
     }

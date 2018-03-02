@@ -38,7 +38,7 @@ return array(
             'givenName'   => 'Admin',
             'sn'          => 'User',
             'eppn'        => 'admin@uwm.edu',
-            'umnDID'      => 'fdsklj25',
+            'internetId'      => 'fdsklj25',
             'umnEmplId'      => '2328381',
             'eduPersonAffiliation' =>'faculty'
         ),
@@ -48,7 +48,7 @@ return array(
             'givenName'   => 'Staff',
             'sn'          => 'User',
             'eppn'        => 'staff@uwm.edu',
-            'umnDID'      => 'fdskl225',
+            'internetId'      => 'fdskl225',
             'eduPersonAffiliation' =>'faculty'
         ),
         'user'  => array(
@@ -57,7 +57,7 @@ return array(
             'givenName'   => 'User',
             'sn'          => 'User',
             'mail'        => 'user@uwm.edu',
-            'umndid'      => 'fdsk2j25',
+            'internetId'      => 'fdsk2j25',
             'eduPersonAffiliation' =>'faculty'
         ),
     ),
@@ -79,7 +79,7 @@ return array(
         'name'        => 'displayName',
         'first_name'  => 'givenName',
         'last_name'   => 'sn',
-        'umndid'  => 'umnDID',
+        'internet_id'  => 'internetId',
         'emplid'  => 'umnEmplId',
         'eduPersonAffiliation'=> 'eduPersonAffiliation'
     ],

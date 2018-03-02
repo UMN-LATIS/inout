@@ -39,8 +39,6 @@ class InoutResource extends JsonResource
                 $canEdit = true;
             }
 
-
-
             if(Auth::user()->boards->find($request->board->id) && Auth::user()->boards->find($request->board->id)->pivot->is_admin) {
                 $canEdit = true;
             }

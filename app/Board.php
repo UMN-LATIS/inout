@@ -9,7 +9,7 @@ class Board extends Model
 {
 
 	protected $fillable = [
-        'unit','public_title','announcement_text'
+        'unit','public_title','announcement_text', 'anyone_can_edit', 'public'
     ];
 
 
