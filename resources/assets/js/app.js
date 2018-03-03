@@ -19,6 +19,7 @@ window.Vue = require('vue');
 
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('inoutentry', require('./components/InoutEntry.vue'));
+Vue.component('admin', require('./components/Admin.vue'));
 
 import PrettyCheckbox from 'pretty-checkbox-vue';
 Vue.use(PrettyCheckbox);

@@ -27,6 +27,7 @@ ul li {
     	</transition-group>
 
     	<button v-on:click="fetch">Fetch</button>
+        <admin :board="board" v-if="boardadmin" v-on:updatedUser="fetch"></admin>
     </div>
 </template>
 
@@ -39,7 +40,7 @@ ul li {
                 filterList: "all"
             };
         },
-        props: ['board'],
+        props: ['board', 'boardadmin'],
         created() {
             this.fetch();
         },

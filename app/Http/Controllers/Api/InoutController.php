@@ -30,6 +30,12 @@ class InoutController extends Controller
         return response()->json(["success"=>true]);
     }
 
+    public function destroy(Request $request, $board, \App\User $user) {
+        $user->boards()->detach($request->board);
+        $user->save();
+        return response()->json(["success"=>true]);
+    }
+
     public function toggleStatus(Request $request, $board, \App\User $user)
     {
         // lookup user
@@ -49,6 +55,28 @@ class InoutController extends Controller
         // set status
 
     	// return confirmation
+
+        return response()->json(["success"=>true]);
+    }
+
+    public function createUser(Request $request, $board)
+    {
+        $username = $request->get("newUser");
+        $user = \App\User::where("internet_id", $username);
+        if($user->count() == 0) {
+            $foundUser = new \App\User;
+            $foundUser->internet_id = $username;
+            $foundUser->last_name = $username;
+            $foundUser->first_name = $username;
+            $foundUser->email = $username;
+            $foundUser->save();
+        }
+        else {
+            $foundUser = $user->get();
+        }
+        
+        $request->board->users()->attach($foundUser);
+
 
         return response()->json(["success"=>true]);
     }

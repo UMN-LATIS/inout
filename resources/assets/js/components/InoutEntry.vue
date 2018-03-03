@@ -14,7 +14,8 @@
 		    <input type="date" id="birthday" class="form-control" placeholder="Birthday">
 			<button v-tooltip.top-center="'Just used to wish you happy birthday'">?</button>
 		  </div>
-		  <button @click="save">Save</button>  
+		  <button @click.prevent="save">Save</button>  
+		  <button @click.prevent="remove">Remove User</button>  
 		</form>
 		
 		
@@ -44,7 +45,7 @@
 		</div>
 		
 	</div>
-
+	
 </template>
 
 
@@ -78,6 +79,14 @@ export default {
             this.editing = false;
             this.editMessage = false;
         });
+  	},
+  	remove () {
+  		axios.delete(this.endpoint + this.board + "/inout/" + this.user.id)
+  		.then(({data}) => {
+  			if(data.success) {
+				this.$emit('updatedUser')
+			}
+  		});
   	}	
   }
   

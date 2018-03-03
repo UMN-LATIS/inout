@@ -26,7 +26,8 @@ class InoutResource extends JsonResource
 
         $canEdit = false;
         $anyoneCanEdit = false;
-        
+        $isAdmin = false;
+
         if($request->board->anyone_can_edit) {
             $anyoneCanEdit = true;
         }
@@ -34,6 +35,7 @@ class InoutResource extends JsonResource
         if(Auth::user()) {
             if(Auth::user()->global_admin) {
                 $canEdit = true;
+                $isAdmin = true;
             }
             if(Auth::user()->id == $this->id) {
                 $canEdit = true;
@@ -41,6 +43,7 @@ class InoutResource extends JsonResource
 
             if(Auth::user()->boards->find($request->board->id) && Auth::user()->boards->find($request->board->id)->pivot->is_admin) {
                 $canEdit = true;
+                $isAdmin = true;
             }
 
         }
@@ -60,6 +63,7 @@ class InoutResource extends JsonResource
             'winner' => $isWinner,
             'canEdit' => $canEdit,
             'anyoneCanEdit' => $anyoneCanEdit,
+            'isAdmin' => $isAdmin,
             'status' => $this->signedIn()?true:false
 
         ];

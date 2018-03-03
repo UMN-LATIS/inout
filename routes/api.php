@@ -21,5 +21,6 @@ Route::group(['prefix' => '{board}'], function () {
 	Route::model('user',\App\User::class);
 	Route::resource('inout', 'Api\InoutController', ['parameters' => ['inout'=>'user']]);
 	Route::put('/inout/{user}/toggleStatus', 'Api\InoutController@toggleStatus');
+	Route::post('/inout/createUser', 'Api\InoutController@createUser');
 
 });
