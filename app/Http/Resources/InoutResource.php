@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Auth;
+use Carbon\Carbon;
 
 class InoutResource extends JsonResource
 {
@@ -21,6 +22,21 @@ class InoutResource extends JsonResource
         $isWinner = false;
         if($this->pivot->winner && $this->pivot->winner->isToday()) {
             $isWinner = true;
+        }
+        $earlyBird = false;
+        if($this->id == $request->board->getEarlyBird()->id) {
+            $earlyBird = true;
+        }
+
+        $happyBirthday = false;
+
+        if($this->birthday) {
+            $now = Carbon::now();
+            if($this->birthday->month == $now->month && $this->birthday->day = $now->day) {
+                $happyBirthday = true;
+            }
+
+
         }
 
 
@@ -59,8 +75,10 @@ class InoutResource extends JsonResource
             'office' => $this->office,
             'phone' => $this->phone,
             'birthday' => $this->birthday,
-            'message' => $this->message,
+            'message' => $this->message?$this->message:"",
             'winner' => $isWinner,
+            'earlyBird' => $earlyBird,
+            'happyBirthday' => $happyBirthday,
             'canEdit' => $canEdit,
             'anyoneCanEdit' => $anyoneCanEdit,
             'isAdmin' => $isAdmin,

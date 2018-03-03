@@ -33,5 +33,24 @@ class Board extends Model
     	}
     }
 
+    public function getEarlyBird() {
+        $earliestUser = null;
+        foreach($this->users as $user) {
+            if(!$user->sign_in || !$user->sign_in->isToday()) {
+                continue;
+            }
+            if(!$earliestUser) {
+                $earliestUser = $user;
+                continue;
+            }
+            if($user->sign_in < $earliestUser->sign_in) {
+                $earliestUser = $user;
+            }
+
+        }
+        return $earliestUser;
+
+    }
+
     public $timestamps = false;
 }

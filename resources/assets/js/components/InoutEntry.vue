@@ -21,26 +21,43 @@
 		
 	</div>
 	<div class="row" v-else>
-		<div class="col-sm-1">
-			<p-check name="status" class="p-icon p-round p-smooth" color="success" off-color="danger" @change="toggleStatus" v-model="user.status">
+		<div class="col-sm-6 col-md-3">
+			<p-check name="status" v-bind:class="{ 'p-locked': !user.canEdit }" class="p-icon p-round p-smooth" color="success" off-color="danger" @change="toggleStatus" v-model="user.status" >
+				<i slot="extra" class="icon fa fa-check"></i>
 			</p-check>
+			<span  v-if="user.canEdit" @click="editing = true" class="username">
+				{{ user.last_name }}, {{ user.first_name }}
+			</span>
+			<span  v-else class="username">
+				{{ user.last_name }}, {{ user.first_name }}
+			</span>
 		</div>
-	
-		<div class="col-sm-2" v-if="user.canEdit" @click="editing = true">
-			{{ user.last_name }}, {{ user.first_name }}
-		</div>
-		<div class="col-sm-2" v-else>
-			{{ user.last_name }}, {{ user.first_name }}
-		</div>
-		<div class="col-sm-8">
-			<form  v-on:submit.prevent="" v-if="user.anyoneCanEdit | user.canEdit">
-				<span v-if="!editMessage" @click="editMessage=true">{{ user.message }}</span>
+		<div class="col-7">
+			<span v-if="user.anyoneCanEdit | user.canEdit">
+				<span v-if="!editMessage">
+					<span v-if="user.message.length > 1">
+						{{ user.message}}
+					</span>
+					<span @click="editMessage=true" class="pull-right">
+						edit
+					</span>
+				</span>
 				<span v-if="editMessage"><input v-model="user.message"><button type=submit @click="save">Save</button></span>
-			</form>
+				
+			</span>
+			<span v-else>
+				{{ user.message }}
+			</span>
 		</div>
-		<div class="col-sm-1">
-			<span v-if="user.winner==true">
+		<div class="col-2">
+			<span class="pull-right" v-if="user.winner==true">
 				YAY
+			</span>
+			<span class="pull-right" v-if="user.earlyBird==true">
+				Early Bird
+			</span>
+			<span class="pull-right" v-if="user.happyBirthday==true">
+				Happy Birthday
 			</span>
 		</div>
 		
@@ -95,8 +112,17 @@ export default {
 
 <style lang="css" scoped>
 
+.username {
+	font-weight: bold;
+}
+
 .p-icon {
 	font-size: 1.3em;
+}
+
+.p-icon {
+	margin-right: 5px;
+	margin-left: 5px;
 }
 
 </style>

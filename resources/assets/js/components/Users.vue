@@ -1,18 +1,3 @@
-<style>
-ul li {
-	list-style: none;
-	border: 1px #000 solid;
-	
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-
-</style>
 
 <template>
     <div class="col-sm-12">
@@ -22,7 +7,7 @@ ul li {
         	<option value="out">Only Out</option>
         </select>
     	<transition-group name="fade">
-    		<inoutentry v-on:updatedUser="fetch" v-for="user in sortedAlphabetically" :key="user.id" :board="board" :endpoint="endpoint" :user="user"></InoutEntry>
+    		<inoutentry v-on:updatedUser="fetch" v-for="user in sortedAlphabetically" :key="user.id" :board="board" :endpoint="endpoint" :user="user" class="inout-entry"></InoutEntry>
 
     	</transition-group>
 
@@ -73,3 +58,20 @@ ul li {
 
     }
 </script>
+
+<style>
+.inout-entry {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px lightgray solid;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+</style>

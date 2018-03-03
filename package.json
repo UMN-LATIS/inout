@@ -21,6 +21,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
+        "font-awesome": "^4.7.0",
         "v-tooltip": "^2.0.0-rc.31"
     }
 }
