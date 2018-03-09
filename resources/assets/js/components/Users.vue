@@ -4,7 +4,11 @@
 
         <h1 class="display-3">{{ board.public_title }}</h1>
         <p class="lead">{{ board.announcement_text}}</p>
-            
+        <div class="row" v-if="allIn">
+            <h1>EVERYONE IS HERE</h1>
+
+
+        </div>
         
         <div class="clearfix">
             <select v-model="filterList" class="pull-right form-control btn-mini col-sm-3">
@@ -27,7 +31,8 @@
             return {
                 users: [],
                 endpoint: '/api/',
-                filterList: "all"
+                filterList: "all",
+                allIn: false
             };
         },
         props: ['board', 'boardadmin'],
@@ -67,6 +72,14 @@
                 axios.get(this.endpoint + this.board.unit + "/inout")
                     .then(({data}) => {
                         this.users = data.data;
+                        if(this.users.filter(function(user) {
+                            return user.status == false;
+                        }).length == 0) {
+                            this.allIn = true;
+                        }
+                        else {
+                            this.allIn = false;
+                        }
                     });
             },
         }

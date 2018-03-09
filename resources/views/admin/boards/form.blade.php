@@ -18,6 +18,24 @@
         {!! $errors->first('announcement_text', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+<div class="form-group {{ $errors->has('push_to_slack') ? 'has-error' : ''}}">
+    <label for="push_to_slack" class="col-md-4 control-label">{{ 'Push To Slack' }}</label>
+    <div class="col-md-6">
+        <div class="radio">
+    <label><input name="push_to_slack" type="radio" value="1" {{ (isset($board) && 1 == $board->push_to_slack) ? 'checked' : '' }}> Yes</label>
+</div>
+<div class="radio">
+    <label><input name="push_to_slack" type="radio" value="0" @if (isset($board)) {{ (0 == $board->push_to_slack) ? 'checked' : '' }} @else {{ 'checked' }} @endif> No</label>
+</div>
+        {!! $errors->first('public', '<p class="help-block">:message</p>') !!}
+    </div>
+<div class="form-group {{ $errors->has('slack_token') ? 'has-error' : ''}}">
+    <label for="slack_token" class="col-md-4 control-label">{{ 'Slack Token' }}</label>
+    <div class="col-md-6">
+        <input class="form-control" name="slack_token" type="text" id="slack_token" value="{{ $board->slack_token or ''}}" >
+        {!! $errors->first('slack_token', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
 <div class="form-group {{ $errors->has('public') ? 'has-error' : ''}}">
     <label for="public" class="col-md-4 control-label">{{ 'Public' }}</label>
     <div class="col-md-6">

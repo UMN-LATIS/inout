@@ -11,7 +11,7 @@ class Board extends Model
 {
 
 	protected $fillable = [
-        'unit','public_title','announcement_text', 'anyone_can_edit', 'public'
+        'unit','public_title','announcement_text', 'anyone_can_edit', 'public', 'push_to_slack', 'slack_token'
     ];
 
 

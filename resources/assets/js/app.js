@@ -7,6 +7,12 @@
 
 require('./bootstrap');
 
+// import fontawesome from '@fortawesome/fontawesome'
+// fontawesome.config = {
+//   familyPrefix: 'fa'
+// }
+
+
 window.Vue = require('vue');
 
 /**

@@ -15,10 +15,10 @@
 				<span v-if="user.anyoneCanEdit | user.canEdit">
 					<span v-if="!editMessage">
 						<span v-if="user.message.length > 1">
-							{{ user.message}}
+							{{ user.message}} <span class="lastUpdated">{{ user.lastUpdated }}</span>
 						</span>
-						<span @click="editMessage=true" class="pull-right">
-							<i class="icon fa fa-edit editIcon" title="edit"></i>
+						<span @click="editMessage=true" class="pull-left editIconSpan">
+							<i class="icon fa fa-pencil editIcon" title="edit"></i>
 						</span>
 					</span>
 					<span v-if="editMessage" class="input-group input-group-sm">
@@ -116,11 +116,15 @@ export default {
 }
 
 .editIcon {
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 .editIcon:hover {
 	cursor: pointer;
-	font-size: 1.5em;
+	/*font-size: 1.5em;*/
+}
+
+.editIconSpan {
+	padding-right: 10px;
 }
 
 .userClick:hover {
@@ -139,7 +143,12 @@ export default {
 }
 
 .statusRow {
-	height:30px;
+	min-height:30px;
+}
+
+.lastUpdated {
+	font-size: 0.8em;
+	color: gray;
 }
 
 .slide-fade-enter-active {

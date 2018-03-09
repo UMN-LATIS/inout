@@ -16,14 +16,14 @@
 				</div>
 			</div>
 			<div class="form-row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<input type="text" class="form-control" id="office" placeholder="Office" v-model.lazy="user.office">
 				</div>
 				
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<input type="url" class="form-control" id="calendarLink" placeholder="Calendar Link" v-model.lazy="user.calendar_link">
 				</div>
-				<div class="col-sm-4 input-group">
+				<div class="col-sm-3 input-group">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Birthday:</span>
 					</div>
@@ -31,6 +31,9 @@
 					<div class="input-group-append">
 						<span v-tooltip.top-center="'Just used to wish you happy birthday. We don\'t need the year.'" class="input-group-text">?</span>
 					</div>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" id="slackUser" placeholder="Slack Display Name" v-model.lazy="user.slack_user">
 				</div>
 			</div>
 			<div class="form-row">
