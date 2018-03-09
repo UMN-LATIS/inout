@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Events\UserChangedEvent;
 
 class InoutController extends Controller
 {
@@ -15,6 +16,7 @@ class InoutController extends Controller
     {
         
         $request->board->setWinner();
+        
         return \App\Http\Resources\InoutResource::collection($request->board->users);
     }
 
@@ -27,19 +29,20 @@ class InoutController extends Controller
     public function update(Request $request, $board, \App\User $user) {
         $user->fill($request->all());
         $user->save();
+        event(new UserChangedEvent($request->board));
         return response()->json(["success"=>true]);
     }
 
     public function destroy(Request $request, $board, \App\User $user) {
         $user->boards()->detach($request->board);
         $user->save();
+        event(new UserChangedEvent($request->board));
         return response()->json(["success"=>true]);
     }
 
     public function toggleStatus(Request $request, $board, \App\User $user)
     {
-        // lookup user
-        // 
+        // check perms
         
         if($user->signedIn()) {
             $user->signOut();
@@ -49,15 +52,29 @@ class InoutController extends Controller
         }
 
         $user->save();
-        // verify access
-        // 
-        // 
-        // set status
-
-    	// return confirmation
-
+        $request->board->setEarlyBird();
+        event(new UserChangedEvent($request->board));
         return response()->json(["success"=>true]);
     }
+
+    public function setStatus(Request $request, $board, \App\User $user, $status)
+    {
+        // check perms
+        
+        if($status == "in") {
+            $user->signIn();
+        }
+        if($status == "out") {
+            $user->signOut();
+        }
+
+        
+        $user->save();
+
+        event(new UserChangedEvent($request->board));
+        return response()->json(["success"=>true]);
+    }
+
 
     public function createUser(Request $request, $board)
     {
@@ -77,7 +94,7 @@ class InoutController extends Controller
         
         $request->board->users()->attach($foundUser);
 
-
+        broadcast(new UserChangedEvent($request->board));
         return response()->json(["success"=>true]);
     }
 

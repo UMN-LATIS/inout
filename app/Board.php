@@ -4,6 +4,8 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
+
 
 class Board extends Model
 {
@@ -15,7 +17,7 @@ class Board extends Model
 
 
     public function users() {
-        return $this->belongsToMany("App\User")->withPivot("is_admin","winner")->using('\App\BoardUserPivot');
+        return $this->belongsToMany("App\User")->withPivot("is_admin","winner", "early_bird")->using('\App\BoardUserPivot');
     }
 
     public function setWinner() {
@@ -33,23 +35,44 @@ class Board extends Model
     	}
     }
 
+    public function setEarlyBird() {
+        $haveEarlyBird = false;
+        foreach($this->users as $user) {
+            if($user->pivot->early_bird && $user->pivot->early_bird->isToday()) {
+                $haveEarlyBird = true;
+            }
+        }
+
+        $earliestUser = null;
+        if(!$haveEarlyBird) {
+            foreach($this->users as $user) {
+                if(!$user->sign_in || !$user->sign_in->isToday()) {
+                    continue;
+                }
+                if(!$earliestUser) {
+                    $earliestUser = $user;
+                    continue;
+                }
+                if($user->sign_in < $earliestUser->sign_in) {
+                    $earliestUser = $user;
+                }
+
+            }
+
+            $earliestUser->pivot->early_bird = Carbon::now();
+            $earliestUser->pivot->save();
+        }
+    }
+
+
     public function getEarlyBird() {
         $earliestUser = null;
         foreach($this->users as $user) {
-            if(!$user->sign_in || !$user->sign_in->isToday()) {
-                continue;
+            if(!$user->pivot->early_bird || !$user->pivot->early_bird->isToday()) {
+                return $user;
             }
-            if(!$earliestUser) {
-                $earliestUser = $user;
-                continue;
-            }
-            if($user->sign_in < $earliestUser->sign_in) {
-                $earliestUser = $user;
-            }
-
         }
-        return $earliestUser;
-
+        return false;
     }
 
     public $timestamps = false;

@@ -13,6 +13,9 @@ class BoardController extends Controller
     	if(Auth::user()->boards->find($request->board->id) && Auth::user()->boards->find($request->board->id)->pivot->is_admin) {
     		$boardAdmin = true;
     	}
-    	return view('board.index', ['board'=>$request->board->unit, 'boardAdmin'=>$boardAdmin]);
+    	if(Auth::user()->global_admin) {
+    		$boardAdmin	= true;
+    	}
+    	return view('board.index', ['board'=>$request->board, 'boardAdmin'=>$boardAdmin]);
     }
 }

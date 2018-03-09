@@ -5,5 +5,5 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  
 class BoardUserPivot extends Pivot {
 
-	protected $dates = ['winner'];
+	protected $dates = ['winner', 'early_bird'];
 }

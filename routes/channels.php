@@ -11,6 +11,18 @@
 |
 */
 
+use App\Board;
+
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+
+Broadcast::channel('{board}', function (App\User $user, $board) {
+	$localBoard = App\Board::where("unit", $board)->get()->first();
+	if(!$localBoard) {
+		return false;
+
+	}
+	return $localBoard->users->contains($user);
 });

@@ -1,18 +1,23 @@
 
 <template>
     <div class="col-sm-12">
-        <select v-model="filterList">
-        	<option value="all">All</option>
-        	<option value="in">Only In</option>
-        	<option value="out">Only Out</option>
-        </select>
-    	<transition-group name="fade">
-    		<inoutentry v-on:updatedUser="fetch" v-for="user in sortedAlphabetically" :key="user.id" :board="board" :endpoint="endpoint" :user="user" class="inout-entry"></InoutEntry>
 
+        <h1 class="display-3">{{ board.public_title }}</h1>
+        <p class="lead">{{ board.announcement_text}}</p>
+            
+        
+        <div class="clearfix">
+            <select v-model="filterList" class="pull-right form-control btn-mini col-sm-3">
+            	<option value="all">Everyone</option>
+            	<option value="in">Only In</option>
+            	<option value="out">Only Out</option>
+            </select>
+        </div>
+    	<transition-group name="fade">
+    		<inoutentry v-on:updatedUser="updatedUser" v-for="user in sortedAlphabetically" :key="user.id" :board="board.unit" :endpoint="endpoint" :user="user" class="inout-entry"></InoutEntry>
     	</transition-group>
 
-    	<button v-on:click="fetch">Fetch</button>
-        <admin :board="board" v-if="boardadmin" v-on:updatedUser="fetch"></admin>
+        <admin :board="board.unit" v-if="boardadmin" v-on:updatedUser="updatedUser"></admin>
     </div>
 </template>
 
@@ -28,6 +33,12 @@
         props: ['board', 'boardadmin'],
         created() {
             this.fetch();
+        },
+        mounted: function() {
+            Echo.private(this.board.unit)
+            .listen('.UserChangedEvent', (e) => {
+                this.fetch();
+            });
         },
         computed: {
   			sortedAlphabetically: function () {
@@ -48,8 +59,12 @@
   			}
 		},
         methods: {
+            updatedUser(e) {
+
+                // this.fetch();
+            },
             fetch() {
-                axios.get(this.endpoint + this.board + "/inout")
+                axios.get(this.endpoint + this.board.unit + "/inout")
                     .then(({data}) => {
                         this.users = data.data;
                     });
@@ -72,6 +87,15 @@
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+select.btn-mini {
+    height: auto;
+    line-height: 14px;
+}
+
+.jumbotron {
+    margin-top: 20px;
 }
 
 </style>

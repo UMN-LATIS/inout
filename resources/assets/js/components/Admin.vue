@@ -1,7 +1,14 @@
 <template>
 	<div>
-		<input type="text" v-model="newUser">
-		<button @click="save">Save</button>
+    <div class="row">
+      <div class="col-sm-4">
+        <input type="text" v-model="newUser" class="form-control" placeholder="Add user (internetId)">
+      </div>
+      <div class="col-sm-3">
+        <button @click="save" class="btn btn-primary">Save</button>  
+      </div>
+		  
+    </div>
 	</div>
 </template>
 
@@ -21,6 +28,7 @@ export default {
   		.then(({data}) => {
   			if(data.success) {
 				this.$emit('updatedUser')
+        this.newUser = "";
 			}
   		});
   	}

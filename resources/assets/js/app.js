@@ -15,11 +15,25 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+import Echo from "laravel-echo"
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'a93fe5d596909fc211e3',
+    cluster: 'mt1',
+    encrypted: true
+});
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('inoutentry', require('./components/InoutEntry.vue'));
 Vue.component('admin', require('./components/Admin.vue'));
+Vue.component('edituser', require('./components/EditUser.vue'));
+Vue.component('viewuser', require('./components/ViewUser.vue'));
 
 import PrettyCheckbox from 'pretty-checkbox-vue';
 Vue.use(PrettyCheckbox);

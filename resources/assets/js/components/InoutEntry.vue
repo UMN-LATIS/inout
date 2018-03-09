@@ -1,112 +1,98 @@
 <template >
-	<div class="row" v-if="editing">
-		<form>
-		  <div class="form-group">
-		    <label for="firstName">First Name</label>
-		    <input type="text" class="form-control" id="firstName" placeholder="First Name" v-model.lazy="user.first_name">
-		  </div>
-		  <div class="form-group">
-		    <label for="lastName">Last Name</label>
-		    <input type="text" class="form-control" id="lastName" placeholder="Last Name" v-model.lazy="user.last_name">
-		  </div>
-		  <div class="form-group">
-		    <label for="birtheday">Birthday</label>
-		    <input type="date" id="birthday" class="form-control" placeholder="Birthday">
-			<button v-tooltip.top-center="'Just used to wish you happy birthday'">?</button>
-		  </div>
-		  <button @click.prevent="save">Save</button>  
-		  <button @click.prevent="remove">Remove User</button>  
-		</form>
-		
-		
-	</div>
-	<div class="row" v-else>
-		<div class="col-sm-6 col-md-3">
-			<p-check name="status" v-bind:class="{ 'p-locked': !user.canEdit }" class="p-icon p-round p-smooth" color="success" off-color="danger" @change="toggleStatus" v-model="user.status" >
-				<i slot="extra" class="icon fa fa-check"></i>
-			</p-check>
-			<span  v-if="user.canEdit" @click="editing = true" class="username">
-				{{ user.last_name }}, {{ user.first_name }}
-			</span>
-			<span  v-else class="username">
-				{{ user.last_name }}, {{ user.first_name }}
-			</span>
-		</div>
-		<div class="col-7">
-			<span v-if="user.anyoneCanEdit | user.canEdit">
-				<span v-if="!editMessage">
-					<span v-if="user.message.length > 1">
-						{{ user.message}}
-					</span>
-					<span @click="editMessage=true" class="pull-right">
-						edit
-					</span>
+	<div>
+		<div class="row statusRow align-items-center" v-bind:id="user.id">
+			<div class="col-sm-12 col-md-4 col-lg-3">
+				<p-check name="status" v-bind:class="{ 'p-locked': !(user.canEdit | user.anyoneCanEdit) }" class="p-icon p-round " color="success" off-color="danger" @change="toggleStatus" v-model="user.status" >
+					<i slot="extra" class="icon fa fa-check"></i>
+				</p-check>
+				<span class="username">
+					<a href="" class="userClick" v-on:click.prevent="show = !show">
+						{{ user.last_name }}, {{ user.first_name }}
+					</a>
 				</span>
-				<span v-if="editMessage"><input v-model="user.message"><button type=submit @click="save">Save</button></span>
-				
-			</span>
-			<span v-else>
-				{{ user.message }}
-			</span>
+			</div>
+			<div class="col-md-8 col-lg-7 col-sm-12">
+				<span v-if="user.anyoneCanEdit | user.canEdit">
+					<span v-if="!editMessage">
+						<span v-if="user.message.length > 1">
+							{{ user.message}}
+						</span>
+						<span @click="editMessage=true" class="pull-right">
+							<i class="icon fa fa-edit editIcon" title="edit"></i>
+						</span>
+					</span>
+					<span v-if="editMessage" class="input-group input-group-sm">
+						<input class="form-control" v-model="user.message" @keyup.enter="save" @keyup.esc="editMessage=false"/>
+						<div class="input-group-append">
+							<button type=submit class="btn btn-primary" @click="save">Save</button>
+						</div>
+					</span>
+
+				</span>
+				<span v-else>
+					{{ user.message }}
+				</span>
+			</div>
+			<div class="col-2 d-none d-lg-block">
+				<div class="pull-right badgeContainer" >
+					<img src="/images/earlybird.svg" class="img-responsive badgeIcon" v-if="user.earlyBird==true" />
+					<img src="/images/winner.svg" class="img-responsive badgeIcon" v-if="user.winner==true" />
+					<img src="/images/cake.svg" class="img-responsive badgeIcon" v-if="user.happyBirthday==true" />
+				</div>
+			</div>	
 		</div>
-		<div class="col-2">
-			<span class="pull-right" v-if="user.winner==true">
-				YAY
-			</span>
-			<span class="pull-right" v-if="user.earlyBird==true">
-				Early Bird
-			</span>
-			<span class="pull-right" v-if="user.happyBirthday==true">
-				Happy Birthday
-			</span>
-		</div>
-		
+		<transition name="slide-fade">
+			<edituser v-if="show && user.canEdit" :user.sync="user" v-on:remove="remove" v-on:save="save"></edituser>
+			<viewuser v-if="show && !user.canEdit" :user.sync="user"></viewuser>
+		</transition>
+
 	</div>
-	
 </template>
 
 
 <script>
 export default {
 
-  name: 'InoutEntry',
-  props: {'user': {}, 'board': null, "endpoint": null},
-  data () {
-    return {
-    	editing: false,
-    	editMessage: false,
-    }
-  },
-  methods: {
-  	toggleStatus () {
-  		axios.put(this.endpoint + this.board + "/inout/" + this.user.id + "/toggleStatus", this.user)
-  		.then(({data}) => {
-  			if(data.success) {
-				this.$emit('updatedUser')
-			}
-  		});
-  		this.$emit('updatedUser')
-  	},
-  	save () {
-  		axios.patch(this.endpoint + this.board + "/inout/" + this.user.id, this.user)
-        .then(({data}) => {
-			if(data.success) {
-				this.$emit('updatedUser')
-			}
-            this.editing = false;
-            this.editMessage = false;
-        });
-  	},
-  	remove () {
-  		axios.delete(this.endpoint + this.board + "/inout/" + this.user.id)
-  		.then(({data}) => {
-  			if(data.success) {
-				this.$emit('updatedUser')
-			}
-  		});
-  	}	
-  }
-  
+	name: 'InoutEntry',
+	props: {'user': {}, 'board': null, "endpoint": null},
+	data () {
+		return {
+			show: false,
+			editing: false,
+			editMessage: false,
+		}
+	},
+	methods: {
+		toggleStatus () {
+			axios.put(this.endpoint + this.board + "/inout/" + this.user.id + "/toggleStatus", this.user)
+			.then(({data}) => {
+				if(data.success) {
+					this.$emit('updatedUser')
+				}
+			});
+		},
+		save () {
+			axios.patch(this.endpoint + this.board + "/inout/" + this.user.id, this.user)
+			.then(({data}) => {
+				if(data.success) {
+					this.$emit('updatedUser')
+				}
+				// $(this.$el).find("a[data-toggle]").click();
+				this.show = false;
+				this.editing = false;
+				this.editMessage = false;
+			});
+		},
+		remove () {
+			axios.delete(this.endpoint + this.board + "/inout/" + this.user.id)
+			.then(({data}) => {
+				if(data.success) {
+					this.$emit('updatedUser')
+				}
+			});
+		}	
+	}
+
 }
 </script>
 
@@ -116,13 +102,62 @@ export default {
 	font-weight: bold;
 }
 
+.username a {
+	color: black;
+}
+
 .p-icon {
-	font-size: 1.3em;
+	font-size: 1.5em;
 }
 
 .p-icon {
 	margin-right: 5px;
 	margin-left: 5px;
+}
+
+.editIcon {
+	font-size: 1.5em;
+}
+.editIcon:hover {
+	cursor: pointer;
+	font-size: 1.5em;
+}
+
+.userClick:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+
+.badgeIcon {
+	width: 25px;
+	max-height: 25px;
+}
+
+.badgeContainer {
+	height: 100%;
+}
+
+.statusRow {
+	height:30px;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s;
+  max-height: 230px;
+
+  /*transition: all .5s ease;*/
+}
+.slide-fade-leave-active {
+  transition: all 0.3s;
+  max-height: 230px;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  /*transform: translateY(-60px);*/
+  /*opacity: 0;*/
+  opacity: 0;
+  max-height: 0px;
 }
 
 </style>
