@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
-use ThreadMeUp\Slack\Client;
+
 class BoardController extends Controller
 {
 

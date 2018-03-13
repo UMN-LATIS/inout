@@ -6,8 +6,6 @@
         <p class="lead">{{ board.announcement_text}}</p>
         <div class="row" v-if="allIn">
             <h1>EVERYONE IS HERE</h1>
-
-
         </div>
         
         <div class="clearfix">
@@ -21,7 +19,7 @@
     		<inoutentry v-on:updatedUser="updatedUser" v-for="user in sortedAlphabetically" :key="user.id" :board="board.unit" :endpoint="endpoint" :user="user" class="inout-entry"></InoutEntry>
     	</transition-group>
 
-        <admin :board="board.unit" v-if="boardadmin" v-on:updatedUser="updatedUser"></admin>
+        <admin :board="board.unit" :boardId="board.id" v-if="boardadmin" v-on:updatedUser="updatedUser"></admin>
     </div>
 </template>
 
@@ -66,7 +64,6 @@
         methods: {
             updatedUser(e) {
 
-                // this.fetch();
             },
             fetch() {
                 axios.get(this.endpoint + this.board.unit + "/inout")

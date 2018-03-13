@@ -13,6 +13,8 @@ require('./bootstrap');
 // }
 
 
+require('date-input-polyfill')
+
 window.Vue = require('vue');
 
 /**

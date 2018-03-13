@@ -9,6 +9,9 @@
       </div>
 		  
     </div>
+    <div class="row">
+      <div class="col-sm-12"><a v-bind:href="'/admin/boards/' + boardId + '/edit'">Edit Board</a> </div>
+    </div>
 	</div>
 </template>
 
@@ -16,7 +19,7 @@
 export default {
 
   name: 'Admin',
-  props: ["board"],
+  props: ["board", "boardId"],
   data () {
     return {
     	newUser: ""

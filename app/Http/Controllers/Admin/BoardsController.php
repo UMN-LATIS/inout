@@ -95,10 +95,14 @@ class BoardsController extends Controller
      */
     public function edit($id)
     {
-        $this->confirmAdmin();
-        $board = Board::findOrFail($id);
+        
+        if((Auth::user()->boards->find($id) && Auth::user()->boards->find($id)->pivot->is_admin) || $this->confirmAdmin()) {
+            $board = Board::findOrFail($id);
 
-        return view('admin.boards.edit', compact('board'));
+            return view('admin.boards.edit', compact('board'));
+        }
+        
+        
     }
 
     /**
@@ -111,13 +115,14 @@ class BoardsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->confirmAdmin();
-        $requestData = $request->all();
-        
-        $board = Board::findOrFail($id);
-        $board->update($requestData);
+        if((Auth::user()->boards->find($id) && Auth::user()->boards->find($id)->pivot->is_admin) || $this->confirmAdmin()) {
+            $requestData = $request->all();
+            
+            $board = Board::findOrFail($id);
+            $board->update($requestData);
 
-        return redirect('admin/boards')->with('flash_message', 'Board updated!');
+            return redirect('admin/boards/' . $id . '/edit')->with('flash_message', 'Board updated!');
+        }
     }
 
     /**

@@ -27,9 +27,9 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Birthday:</span>
 					</div>
-					<input type="date" id="birthday" v-model.lazy="user.birthday" class="form-control" placeholder="Birthday (mm/dd)">
+					<input type="date" id="birthday" v-model.lazy="user.birthday" class="form-control" placeholder="Birthday (YYYY-MM-DD)">
 					<div class="input-group-append">
-						<span v-tooltip.top-center="'Just used to wish you happy birthday. We don\'t need the year.'" class="input-group-text">?</span>
+						<span v-tooltip.top-center="'Just used to wish you happy birthday. You don\'t need to give the real year.'" class="input-group-text">?</span>
 					</div>
 				</div>
 				<div class="col-sm-3">
