@@ -26,14 +26,18 @@ window.Vue = require('vue');
 
 import Echo from "laravel-echo"
 
-window.Pusher = require('pusher-js');
+window.io = require('socket.io-client');
 
 window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'a93fe5d596909fc211e3',
-    cluster: 'mt1',
-    encrypted: true
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001',
+    // auth: {
+    //     headers: {
+    //         Authorization: 'Bearer ' + "2b54f921c0e9394855626e3641cb91c4",
+    //     },
+    // },
 });
+
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 

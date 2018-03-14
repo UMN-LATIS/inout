@@ -18,8 +18,7 @@ class AuthIfNecessary
      */
     public function handle($request, Closure $next)
     {
-        if($request->board && is_object($request->board) && !$request->board->public) {
-            
+        if($request->board && is_object($request->board) && !$request->board->public) {       
             if($request->secret && $request->user) {
                 if(substr(sha1($request->user->id . "hehaha"), 0, 5) != $request->secret) {
                     abort(403);
