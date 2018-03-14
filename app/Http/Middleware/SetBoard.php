@@ -15,7 +15,6 @@ class SetBoard
      */
     public function handle($request, Closure $next)
     {
-
         config(['app.targetboard' => $request->board]);
         $board = \App\Board::where("unit",$request->board)->get();
         if($board->count() > 0) {

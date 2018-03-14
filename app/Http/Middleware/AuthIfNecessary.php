@@ -25,12 +25,24 @@ class AuthIfNecessary
                 }
             }
             else {
+                if(Auth::user() && Auth::user()->guest_user) {
+                    Auth::logout();    
+                }
                 Auth::authenticate();
                 if(!Auth::user()->boards->find($request->board->id)) {
                     abort(403);
-                }    
+                }
             }
-            
+        }
+        else if($request->board && is_object($request->board) && $request->board->public) {
+            if(!Auth::user()) {
+                $user = new \App\User;
+                $user->first_name="Guest";
+                $user->last_name="User";
+                $user->guest_user = true;
+                $user->save();
+                Auth::login($user);
+            }
         }
         return $next($request);
     }

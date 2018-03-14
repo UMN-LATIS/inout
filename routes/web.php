@@ -36,6 +36,7 @@ else {
 Route::group(['prefix' => '{board}'], function () {
     Route::get('/', 'BoardController@index');
 	Route::get('/login', 'BoardController@login');
+    Route::get('/loginRedirect', 'BoardController@loginRedirect');
 });
 
 

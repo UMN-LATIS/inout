@@ -11,7 +11,6 @@
     	<script src="/umn/js/umnhf-2015.js" type="text/javascript"></script>
 		<script src="/umn/js/html5shiv-printshiv.js" type="text/javascript"></script>
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-
 	    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css">
 
 			@yield('header')
@@ -48,9 +47,8 @@
 		<main id="umn-main" role="main">
 
 
-
 			<div class="home" id="app">
-				@if (Auth::guest())
+				@if (Auth::user()->guest_user)
 				<p class="pull-right">{{ HTML::linkAction('BoardController@login', "Log In", [$board->unit]) }}</p>
 				@endif
 				@yield('content')

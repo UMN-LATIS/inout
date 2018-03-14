@@ -8,11 +8,12 @@ class BoardController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth')->only(['login']);
+        $this->middleware('auth')->only(['loginRedirect']);
     }
 
     public function index(Request $request)
     {
+
     	$boardAdmin = false;
         if(Auth::user() ) {
             if(Auth::user()->boards->find($request->board->id) && Auth::user()->boards->find($request->board->id)->pivot->is_admin) {
@@ -27,7 +28,15 @@ class BoardController extends Controller
     }
 
     public function login(Request $request) {
+        if(Auth::user() && Auth::user()->guest_user) {
+            Auth::logout();    
+        }
         
+        return redirect()->action('BoardController@loginRedirect', ['board'=>$request->board->unit]);
+    }
+
+
+    public function loginRedirect(Request $request) {
         return redirect()->action('BoardController@index', ['board'=>$request->board->unit]);
     }
 }

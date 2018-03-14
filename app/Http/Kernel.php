@@ -54,6 +54,16 @@ class Kernel extends HttpKernel
             // \App\Http\Middleware\CreateGuestFallback::class,
             'bindings'
         ],
+        'channel' => [
+            'throttle:200,1',
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\SetBoard::class,
+            \App\Http\Middleware\AuthIfNecessary::class,
+            // \App\Http\Middleware\CreateGuestFallback::class,
+            'bindings'
+        ],
     ];
 
     /**

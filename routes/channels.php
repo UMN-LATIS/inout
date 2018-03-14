@@ -14,19 +14,25 @@
 use App\Board;
 use Illuminate\Broadcasting;
 
-// Broadcast::channel('App.User.{id}', function ($user, $id) {
-//     return (int) $user->id === (int) $id;
-// });
-Route::group(['middleware' => 'web'], function () {
-	Route::post('/broadcasting/auth', function(Illuminate\Http\Request $req) {
-		$bc = new \Illuminate\Broadcasting\BroadcastController;
-		Auth::login(new \App\User);
 
-		return $bc->authenticate($req);
-	});
-});
+// this is a hack to allow private channels with non-authed users
+// when they make a request and they're not logged in, we make a temporary user which allows us to do
+// token negoation with laravel-echo, etc.
+// this doesn't get persisted
+// 
+// 
+// Route::group(['middleware' => 'api'], function () {
+// 	Route::post('/broadcasting/auth', function(Illuminate\Http\Request $req) {
+// 		$bc = new \Illuminate\Broadcasting\BroadcastController;
+// 		if(Auth::guest()) {
+// 			Auth::loginUsingId(18);
+// 		}
+// 		return $bc->authenticate($req);
+// 	});
+// });
 
 Broadcast::channel('{board}', function (App\User $user, $board) {
+
 	$localBoard = App\Board::where("unit", $board)->get()->first();
 	if(!$localBoard) {
 		return false;
