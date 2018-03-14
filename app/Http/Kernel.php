@@ -36,7 +36,8 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\SetBoard::class,
-            \App\Http\Middleware\AuthIfNecessary::class
+            \App\Http\Middleware\AuthIfNecessary::class,
+            // \App\Http\Middleware\CreateGuestFallback::class
         ],
 
         'api' => [
@@ -50,6 +51,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\SetBoard::class,
             \App\Http\Middleware\AuthIfNecessary::class,
+            // \App\Http\Middleware\CreateGuestFallback::class,
             'bindings'
         ],
     ];
