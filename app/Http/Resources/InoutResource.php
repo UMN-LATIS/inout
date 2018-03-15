@@ -17,8 +17,6 @@ class InoutResource extends JsonResource
      */
     public function toArray($request)
     {
-
-        $users = $request->board->users;
         
         $isWinner = false;
         if($this->pivot->winner && $this->pivot->winner->isToday() && $this->signedIn()) {
@@ -52,7 +50,6 @@ class InoutResource extends JsonResource
         if(Auth::user()) {
             if(Auth::user()->global_admin) {
                 $canEdit = true;
-                $isAdmin = true;
             }
             if(Auth::user()->id == $this->id) {
                 $canEdit = true;
@@ -60,13 +57,17 @@ class InoutResource extends JsonResource
 
             if(Auth::user()->boards->find($request->board->id) && Auth::user()->boards->find($request->board->id)->pivot->is_admin) {
                 $canEdit = true;
-                $isAdmin = true;
             }
 
         }
         
 
 
+        $userHash = null;
+
+        if($canEdit) {
+            $userHash = substr(sha1($this->id . "hehaha"), 0, 5);
+        }
 
         return [
             'id' => $this->id,
@@ -83,11 +84,11 @@ class InoutResource extends JsonResource
             'happyBirthday' => $happyBirthday,
             'canEdit' => $canEdit,
             'anyoneCanEdit' => $anyoneCanEdit,
-            'isAdmin' => $isAdmin,
+            'isAdmin' => $this->pivot->is_admin,
             "slack_user" => $this->slack_user,
             'lastUpdated' => $this->updated_at?$this->updated_at->format("n/j"):"",
-            'status' => $this->signedIn()?true:false
-
+            'status' => $this->signedIn()?true:false,
+            'userHash' => $userHash
         ];
 
     }

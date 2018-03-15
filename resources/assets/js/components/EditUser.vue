@@ -36,6 +36,25 @@
 					<input type="text" class="form-control" id="slackUser" placeholder="Slack Display Name" v-model.lazy="user.slack_user">
 				</div>
 			</div>
+			<div class="form-row form-inline">
+					<label for="input" class="col-sm-2 control-label">Check-In URL:</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" style="width: 100%" v-model="checkInURL" @click="$event.target.select()">
+					</div>
+					<label for="input" class="col-sm-2 control-label">Check-Out URL:</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" style="width: 100%" v-model="checkOutURL" @click="$event.target.select()">
+					</div>
+			</div>
+			
+			<div class="form-row" v-if="boardadmin">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" v-model="user.isAdmin">
+						Board Admin
+					</label>
+				</div>
+			</div>
 			<div class="form-row">
 				<div class="col">
 					<button @click.prevent="save" class="btn btn-primary">Save</button>  
@@ -51,7 +70,15 @@
 export default {
 
 	name: 'EditUser',
-	props: ['user'],
+	props: ['user', 'boardadmin', 'board', "endpoint"],
+	computed: {
+		checkInURL: function() {
+			return "http://" + window.location.hostname + ":" + location.port + this.endpoint + this.board + "/inout/" + this.user.id + "/in/" + this.user.userHash;
+		},
+		checkOutURL: function() {
+			return "http://" + window.location.hostname+ this.endpoint + this.board + "/inout/" + this.user.id + "/out/" + this.user.userHash;
+		}
+	},
 	methods: {
 		save() {
 			this.$emit('update:user', this.user);

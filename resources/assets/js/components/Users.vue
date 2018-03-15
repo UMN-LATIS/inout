@@ -4,8 +4,11 @@
 
         <h1 class="display-3">{{ board.public_title }}</h1>
         <p class="lead">{{ board.announcement_text}}</p>
-        <div class="row" v-if="allIn">
-            <h1>EVERYONE IS HERE</h1>
+        <div class="row " v-if="allIn">
+            <div class="col headerRow">
+            <h1 class="headerText">Wow!</h1>
+            <p class="headerSmall">Everyone is here!</p>
+            </div>
         </div>
         
         <div class="clearfix">
@@ -16,7 +19,7 @@
             </select>
         </div>
     	<transition-group name="fade">
-    		<inoutentry v-on:updatedUser="updatedUser" v-for="user in sortedAlphabetically" :key="user.id" :board="board.unit" :endpoint="endpoint" :user="user" class="inout-entry"></InoutEntry>
+    		<inoutentry v-on:updatedUser="updatedUser" v-for="user in sortedAlphabetically" :key="user.id" :board="board.unit" :boardadmin="boardadmin" :endpoint="endpoint" :user="user" class="inout-entry"></InoutEntry>
     	</transition-group>
 
         <admin :board="board.unit" :boardId="board.id" v-if="boardadmin" v-on:updatedUser="updatedUser"></admin>
@@ -108,4 +111,41 @@ select.btn-mini {
     margin-top: 20px;
 }
 
+.headerRow {
+    text-align: center;
+    animation-name: hideRow;
+    animation-duration: 1s;
+    animation-delay: 10s;
+    animation-fill-mode: forwards;
+    overflow:hidden;
+}
+
+
+
+@keyframes fontAnimation {
+    0%   {font-size:100%}
+    25%  {font-size:90%;}
+    50%  {font-size:110%;}
+    100% {font-size:100%;}
+}
+
+@keyframes hideRow {
+    0%   {max-height: 200px; overflow:hidden; height:auto; display:block;}
+    100% {max-height: 0px; overflow:hidden; height:auto; display:block;}
+}
+
+
+.headerText {
+    font-family: 'Amatic SC', cursive;
+    color: rgba(00,150,150,1);
+    font-size: 10em;
+    animation-name: fontAnimation;
+    animation-duration: 2s;
+
+}
+.headerSmall {
+    font-size: 3.5em;
+    font-family: 'Amatic SC', cursive;
+
+}
 </style>

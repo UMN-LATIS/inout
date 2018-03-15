@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 Use Log;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\UserChangedEvent;
@@ -19,7 +20,8 @@ class InoutController extends Controller
         
         $request->board->setWinner();
         
-        return \App\Http\Resources\InoutResource::collection($request->board->users);
+        $jsonResource = \App\Http\Resources\InoutResource::collection($request->board->users);
+        return $jsonResource;
     }
 
     public function show(Request $request, \App\User $user)
@@ -32,12 +34,17 @@ class InoutController extends Controller
         $user->fill($request->all());
         $user->save();
 
+        if(Auth::user()->boards->find($request->board->id)->pivot->is_admin || Auth::user()->global_admin) {
+            $user->boards->find($request->board->id)->pivot->is_admin = $request->get("isAdmin");
+            $user->boards->find($request->board->id)->pivot->save();
+        }
+        
         event(new UserChangedEvent($request->board));
 
         if($request->board->push_to_slack && $request->board->slack_token) {
             $config = [
                 'token' => $request->board->slack_token,
-                'team' => '',
+                'team' => 'latis-team',
                 'username' => 'BOT-NAME',
                 'icon' => 'ICON', // Auto detects if it's an icon_url or icon_emoji
                 'parse' => '', // __construct function in Client.php calls for the parse parameter 
@@ -113,6 +120,10 @@ class InoutController extends Controller
 
     public function createUser(Request $request, $board)
     {
+        if(!Auth::user()->boards->find($request->board->id)->pivot->is_admin && !Auth::user()->global_admin) {
+            return response()->json(["success"=>false]);
+        }
+
         $username = $request->get("newUser");
         $user = \App\User::where("internet_id", $username);
         if($user->count() == 0) {
@@ -139,7 +150,7 @@ class InoutController extends Controller
                 $foundUser->first_name = isset($info[0]["givenname"])?$info[0]["givenname"][0]:$username;
                 $foundUser->email =isset( $info[0]["umndisplaymail"])?$info[0]["umndisplaymail"][0]:$username;
                 $foundUser->office = isset($info[0]["umnofficeaddress1"])?$info[0]["umnofficeaddress1"][0]:$username;
-
+                break;
             }
             
             $foundUser->save();

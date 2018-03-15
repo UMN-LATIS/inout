@@ -22,7 +22,7 @@
 						</span>
 					</span>
 					<span v-if="editMessage" class="input-group input-group-sm">
-						<input class="form-control" v-model="user.message" @keyup.enter="save" @keyup.esc="editMessage=false"/>
+						<input class="form-control messageEntry" v-model="user.message" @keyup.enter="save" @keyup.esc="editMessage=false"/>
 						<div class="input-group-append">
 							<button type=submit class="btn btn-primary" @click="save">Save</button>
 						</div>
@@ -42,7 +42,7 @@
 			</div>	
 		</div>
 		<transition name="slide-fade">
-			<edituser v-if="show && user.canEdit" :user.sync="user" v-on:remove="remove" v-on:save="save"></edituser>
+			<edituser v-if="show && user.canEdit" :board="board" :endpoint="endpoint" :boardadmin="boardadmin" :user.sync="user" v-on:remove="remove" v-on:save="save"></edituser>
 			<viewuser v-if="show && !user.canEdit" :user.sync="user"></viewuser>
 		</transition>
 
@@ -54,7 +54,7 @@
 export default {
 
 	name: 'InoutEntry',
-	props: {'user': {}, 'board': null, "endpoint": null},
+	props: {'user': {}, 'board': null, "endpoint": null, "boardadmin": null},
 	data () {
 		return {
 			show: false,
@@ -152,21 +152,23 @@ export default {
 }
 
 .slide-fade-enter-active {
-  transition: all 0.3s;
-  max-height: 230px;
+  overflow:hidden;
+  transition:max-height 0.3s ease-out;
+  max-height:600px;
 
   /*transition: all .5s ease;*/
 }
 .slide-fade-leave-active {
-  transition: all 0.3s;
-  max-height: 230px;
+	overflow:hidden;
+  transition:max-height 0.3s ease-out;
+  max-height:600px;
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
   /*transform: translateY(-60px);*/
   /*opacity: 0;*/
-  opacity: 0;
-  max-height: 0px;
+  /*opacity: 0;*/
+  max-height:0;
 }
 
 </style>
