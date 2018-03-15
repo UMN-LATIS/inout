@@ -34,8 +34,6 @@ class InoutResource extends JsonResource
             if($this->birthday->month == $now->month && $this->birthday->day == $now->day) {
                 $happyBirthday = true;
             }
-
-
         }
 
 

@@ -32,6 +32,7 @@ else {
 
 }
 
+Route::get("/", "WelcomeController@index");
 
 Route::group(['prefix' => '{board}'], function () {
     Route::get('/', 'BoardController@index');
