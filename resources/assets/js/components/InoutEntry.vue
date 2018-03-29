@@ -10,16 +10,17 @@
 						{{ user.last_name }}, {{ user.first_name }}
 					</a>
 				</span>
+				<span v-if="(user.anyoneCanEdit | user.canEdit) & !editMessage" @click="editMessage=true" class="pull-right editIconSpan">
+							<i class="icon fa fa-pencil editIcon" title="edit"></i>
+						</span>
 			</div>
 			<div class="col-md-8 col-lg-7 col-sm-12">
 				<span v-if="user.anyoneCanEdit | user.canEdit">
 					<span v-if="!editMessage">
-						<span v-if="user.message.length > 1">
+						<span class="messageText" v-if="user.message.length > 1">
 							{{ user.message}} <span class="lastUpdated">{{ user.lastUpdated }}</span>
 						</span>
-						<span @click="editMessage=true" class="pull-left editIconSpan">
-							<i class="icon fa fa-pencil editIcon" title="edit"></i>
-						</span>
+						
 					</span>
 					<span v-if="editMessage" class="input-group input-group-sm">
 						<input class="form-control messageEntry" v-model="user.message" @keyup.enter="save" @keyup.esc="editMessage=false"/>
@@ -29,8 +30,10 @@
 					</span>
 
 				</span>
-				<span v-else>
-					{{ user.message }}
+				<span class="messageText" v-else>
+					<span v-if="user.message.length > 1">
+						{{ user.message }} <span class="lastUpdated">{{ user.lastUpdated }}</span>
+					</span>
 				</span>
 			</div>
 			<div class="col-2 d-none d-lg-block">
@@ -169,6 +172,12 @@ export default {
   /*opacity: 0;*/
   /*opacity: 0;*/
   max-height:0;
+}
+
+@media only screen and (max-width: 767px) {
+	.messageText {
+		margin-top: 3px;
+	}
 }
 
 </style>
