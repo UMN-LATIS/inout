@@ -16,6 +16,7 @@ class BoardsController extends Controller
         if(!Auth::user() || !Auth::user()->global_admin) {
             abort(403);
         }
+        return true;
     }
     
 
