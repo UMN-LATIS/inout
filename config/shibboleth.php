@@ -79,7 +79,8 @@ return array(
         'name'        => 'displayName',
         'first_name'  => 'givenName',
         'last_name'   => 'sn',
-        'internet_id'  => 'internetId',
+        'internet_id'  => 'umnDID',
+        'umndid' => 'umnDID',
         'emplid'  => 'umnEmplId',
         'eduPersonAffiliation'=> 'eduPersonAffiliation'
     ],
@@ -93,7 +94,7 @@ return array(
     |
      */
 
-    'add_new_users' => true, // Should new users be added automatically if they do not exist?
+    'add_new_users' => false, // Should new users be added automatically if they do not exist?
 
     /*
     |--------------------------------------------------------------------------

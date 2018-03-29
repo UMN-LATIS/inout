@@ -7,7 +7,7 @@ require 'recipe/laravel.php';
 set('ssh_type', 'native');
 set('ssh_multiplexing', true);
 
-set('repository', 'git@github.umn.edu:mcfa0086/inout-2.0.git');
+set('repository', 'git@github.umn.edu:latis-sw/inout-2.0.git');
 
 add('shared_files', []);
 add('shared_dirs', []);

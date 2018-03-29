@@ -125,7 +125,7 @@ class InoutController extends Controller
         }
 
         $username = $request->get("newUser");
-        $user = \App\User::where("internet_id", $username);
+        $user = \App\User::where("umndid", $username);
         if($user->count() == 0) {
             $foundUser = new \App\User;
 
@@ -137,7 +137,7 @@ class InoutController extends Controller
 
             $filter = "(cn=" . $username . ")";
             $search = ldap_search([$connect], $base_dn, $filter);
-            $foundUser->internet_id = $username;
+            $foundUser->umndid = $username;
             $foundUser->last_name = $username;
             $foundUser->first_name = $username;
             $foundUser->email = $username;
@@ -145,7 +145,7 @@ class InoutController extends Controller
             foreach($search as $readItem) {
 
                 $info = ldap_get_entries($connect, $readItem);
-                $foundUser->internet_id = $username;
+                $foundUser->umndid = $username;
                 $foundUser->last_name = isset($info[0]["sn"])?$info[0]["sn"][0]:$username;
                 $foundUser->first_name = isset($info[0]["givenname"])?$info[0]["givenname"][0]:$username;
                 $foundUser->email =isset( $info[0]["umndisplaymail"])?$info[0]["umndisplaymail"][0]:$username;
