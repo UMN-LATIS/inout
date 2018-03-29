@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "appzcoder/crud-generator": "^3.0",
+        "deployer/recipes": "^6.0",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "laravel/dusk": "^3.0",

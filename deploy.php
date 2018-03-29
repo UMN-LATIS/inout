@@ -1,6 +1,7 @@
 <?php
 namespace Deployer;
 require 'recipe/laravel.php';
+require 'recipe/npm.php';
 
 // Configuration
 
@@ -40,6 +41,10 @@ host('prod')
     ->set('bin/php', '/opt/rh/rh-php71/root/usr/bin/php')
 	->set('deploy_path', '/swadm/var/www/html/');
 
+task('assets:generate', function() {
+  cd('{{release_path}}');
+  run('npm run production');
+})->desc('Assets generation');
 
 
 // $result = run("scl enable rh-php56 'php -v'");
@@ -59,3 +64,5 @@ after('deploy:failed', 'deploy:unlock');
 // Migrate database before symlink new release.
 
 before('deploy:symlink', 'artisan:migrate');
+after('deploy:update_code', 'npm:install');
+after('npm:install', 'assets:generate');
