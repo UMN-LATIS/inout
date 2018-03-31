@@ -1,5 +1,5 @@
 {
-	"authHost": "https://localhost",
+	"authHost": "http://localhost:8000",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 		{
@@ -17,11 +17,8 @@
 	"devMode": true,
 	"host": null,
 	"port": "6001",
-	"protocol": "https",
+	"protocol": "http",
 	"socketio":  {"wsEngine": "ws"},
-	"sslCertPath": "/swadm/etc/pki/tls/certs/cla-inout-dev.cla.umn.edu.cer",
-	"sslKeyPath": "/swadm/etc/pki/tls/private/cla-inout-dev.cla.umn.edu.key",
-	"sslCertChainPath": "/swadm/etc/pki/tls/certs/cla-inout-dev.cla.umn.edu_interm.cer",
 	"sslPassphrase": "",
 	"apiOriginAllow": {
 		"allowCors": false,

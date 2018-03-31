@@ -115,7 +115,7 @@ select.btn-mini {
     text-align: center;
     animation-name: hideRow;
     animation-duration: 1s;
-    animation-delay: 10s;
+    animation-delay: 7s;
     animation-fill-mode: forwards;
     overflow:hidden;
 }
@@ -123,10 +123,10 @@ select.btn-mini {
 
 
 @keyframes fontAnimation {
-    0%   {font-size:100%}
-    25%  {font-size:90%;}
-    50%  {font-size:110%;}
-    100% {font-size:100%;}
+    0%   {font-size: 0px;}
+    25%  {font-size:160px;}
+    50%  {font-size:140px;}
+    100% {font-size:150px;}
 }
 
 @keyframes hideRow {
@@ -138,7 +138,7 @@ select.btn-mini {
 .headerText {
     font-family: 'Amatic SC', cursive;
     color: rgba(00,150,150,1);
-    font-size: 10em;
+    font-size: 150px;
     animation-name: fontAnimation;
     animation-duration: 2s;
 
