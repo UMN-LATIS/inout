@@ -145,7 +145,7 @@ class InoutController extends Controller
             foreach($search as $readItem) {
 
                 $info = ldap_get_entries($connect, $readItem);
-                $foundUser->umndid = $username;
+                $foundUser->umndid = isset($info[0]["umndid"])?$info[0]["umndid"][0]:$username;
                 $foundUser->last_name = isset($info[0]["sn"])?$info[0]["sn"][0]:$username;
                 $foundUser->first_name = isset($info[0]["givenname"])?$info[0]["givenname"][0]:$username;
                 $foundUser->email =isset( $info[0]["umndisplaymail"])?$info[0]["umndisplaymail"][0]:$username;
@@ -164,5 +164,6 @@ class InoutController extends Controller
         broadcast(new UserChangedEvent($request->board));
         return response()->json(["success"=>true]);
     }
+
 
 }

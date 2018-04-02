@@ -51,7 +51,7 @@
 
 			<div class="home" id="app">
 				@if (Auth::user()->guest_user)
-				<p class="pull-right">{{ HTML::linkAction('BoardController@login', "Log In", [$board->unit]) }}</p>
+				<p class="pull-right login">{{ HTML::linkAction('BoardController@login', "Log In", [$board->unit]) }}</p>
 				@endif
 				@yield('content')
 

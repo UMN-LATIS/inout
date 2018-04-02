@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="slackUser" placeholder="Slack Display Name" v-model.lazy="user.slack_user">
+					<input type="text" class="form-control" id="slackUser" placeholder="Slack User Name" v-model.lazy="user.slack_user">
 				</div>
 			</div>
 			<div class="form-row form-inline">

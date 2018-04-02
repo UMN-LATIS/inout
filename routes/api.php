@@ -24,5 +24,4 @@ Route::group(['prefix' => '{board}'], function () {
 	Route::get('/inout/{user}/{status}/{secret}', 'Api\InoutController@setStatus');
 	Route::get('/inout/{user}/{status}/{secret}', 'Api\InoutController@setStatus');
 	Route::post('/inout/createUser', 'Api\InoutController@createUser');
-
 });

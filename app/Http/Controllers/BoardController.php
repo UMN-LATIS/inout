@@ -39,4 +39,16 @@ class BoardController extends Controller
     public function loginRedirect(Request $request) {
         return redirect()->action('BoardController@index', ['board'=>$request->board->unit]);
     }
+
+
+    public function slackEndpoint(Request $request, $board) {
+        if($request->json("type") == "url_verification") {
+            return $request->json("challenge");
+        }
+
+        Log::error($request->json()->all());
+        return response()->json(["success"=>true]);
+    }
+
+
 }
