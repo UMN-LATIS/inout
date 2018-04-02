@@ -128,7 +128,7 @@ class InoutController extends Controller
         $user = \App\User::where("umndid", $username);
         if($user->count() == 0) {
             $foundUser = new \App\User;
-
+            putenv('LDAPTLS_REQCERT=never');
             $connect = ldap_connect( 'ldaps://ldap-dsee.oit.umn.edu', 636);
             $base_dn = array("o=University of Minnesota, c=US",);
             ldap_set_option($connect, LDAP_OPT_PROTOCOL_VERSION, 3);
