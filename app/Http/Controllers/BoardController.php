@@ -16,7 +16,7 @@ class BoardController extends Controller
     public function index(Request $request)
     {
 
-    	$boardAdmin = false;
+        $boardAdmin = false;
         if(Auth::user() ) {
             if(Auth::user()->boards->find($request->board->id) && Auth::user()->boards->find($request->board->id)->pivot->is_admin) {
                 $boardAdmin = true;
@@ -50,10 +50,10 @@ class BoardController extends Controller
 
         $event = $request->json("event");
         if($event['type'] == "user_change") {
-            $username = $event['name'];
-            $status = $event['status_text'];
-            $user = \App\User::where("slack_user", $username);
-            if($user->count() == 0) {
+            $username = $event['user']['name'];
+            $status = $event['user']['profile']['status_text'];
+
+            if($user = \App\User::where("slack_user", $username)->first()) {
                 $user->message = $status;
                 $user->save();
                 event(new UserChangedEvent($request->board));

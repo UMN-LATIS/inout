@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+Use App\Jobs\NotifySlack;
 Use Log;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\UserChangedEvent;
-use ThreadMeUp\Slack\Client;
+
 
 class InoutController extends Controller
 {
@@ -42,32 +43,7 @@ class InoutController extends Controller
         event(new UserChangedEvent($request->board));
 
         if($request->board->push_to_slack && $request->board->slack_token) {
-            $config = [
-                'token' => $request->board->slack_token,
-                'team' => 'latis-team',
-                'username' => 'BOT-NAME',
-                'icon' => 'ICON', // Auto detects if it's an icon_url or icon_emoji
-                'parse' => '', // __construct function in Client.php calls for the parse parameter 
-            ];
-
-            try {
-                $slack = new Client($config);
-                $slackUsers = $slack->users();
-                foreach ($slackUsers as $slackUser)
-                {
-                    if($slackUser->handle() == $user->slack_user) {
-                        $userId = $slackUser->id();
-                        $status["status_text"] = $user->message;
-                        $status["status_emoji"] = "";
-                        $slack->request("users.profile.set", ["token"=>$request->board->slack_token,"profile"=>json_encode($status), "user"=>$userId])->send()->json();
-                    }
-                }
-        
-            }
-            catch (Exception $e) {
-
-            }
-            
+             NotifySlack::dispatch($user, $request->board);
         }
         
 

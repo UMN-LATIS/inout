@@ -17,7 +17,7 @@
 			<div class="col-md-8 col-lg-7 col-sm-12">
 				<span v-if="user.anyoneCanEdit | user.canEdit">
 					<span v-if="!editMessage">
-						<span class="messageText" v-if="user.message.length > 1">
+						<span class="messageText" v-if="user.message.length > 1" @click="editMessage = !editMessage">
 							{{ user.message}} <span class="lastUpdated">{{ user.lastUpdated }}</span>
 						</span>
 						
