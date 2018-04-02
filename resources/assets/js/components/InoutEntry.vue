@@ -38,9 +38,9 @@
 			</div>
 			<div class="col-2 d-none d-lg-block">
 				<div class="pull-right badgeContainer" >
-					<img src="/images/earlybird.svg" class="img-responsive badgeIcon" v-if="user.earlyBird==true" />
-					<img src="/images/winner.svg" class="img-responsive badgeIcon" v-if="user.winner==true" />
-					<img src="/images/cake.svg" class="img-responsive badgeIcon" v-if="user.happyBirthday==true" />
+					<img src="/images/earlybird.svg" class="img-responsive badgeIcon" v-if="user.earlyBird==true" v-tooltip.top-center="'Early Bird!'"/>
+					<img src="/images/winner.svg" class="img-responsive badgeIcon" v-if="user.winner==true" v-tooltip.top-center="'Today\'s random winner'"/>
+					<img src="/images/cake.svg" class="img-responsive badgeIcon" v-if="user.happyBirthday==true" v-tooltip.top-center="'Happy BirthdaY!'"/>
 				</div>
 			</div>	
 		</div>

@@ -34,7 +34,7 @@ class InoutController extends Controller
         $user->fill($request->all());
         $user->save();
 
-        if(Auth::user()->boards->find($request->board->id)->pivot->is_admin || Auth::user()->global_admin) {
+        if(Auth::user() && Auth::user()->boards->find($request->board->id)->pivot->is_admin || Auth::user()->global_admin) {
             $user->boards->find($request->board->id)->pivot->is_admin = $request->get("isAdmin");
             $user->boards->find($request->board->id)->pivot->save();
         }

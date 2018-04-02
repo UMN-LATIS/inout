@@ -17,7 +17,7 @@ class Boards extends Migration
             $table->increments('id');
             $table->string('unit');
             $table->string('public_title');
-            $table->string('announcement_text');
+            $table->string('announcement_text')->nullable();
             $table->boolean('public');
             $table->boolean('anyone_can_edit')->default(false);
          });
