@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Auth;
+Use Log;
 use Illuminate\Http\Request;
 
 class BoardController extends Controller
