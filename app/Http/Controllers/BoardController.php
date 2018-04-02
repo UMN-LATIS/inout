@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 Use Log;
 use Illuminate\Http\Request;
+use App\Events\UserChangedEvent;
 
 class BoardController extends Controller
 {
@@ -47,7 +48,18 @@ class BoardController extends Controller
             return $request->json("challenge");
         }
 
-        Log::error($request->json()->all());
+        $event = $request->json("event");
+        if($event['type'] == "user_change") {
+            $username = $event['name'];
+            $status = $event['status_text'];
+            $user = \App\User::where("slack_user", $username);
+            if($user->count() == 0) {
+                $user->message = $status;
+                $user->save();
+                event(new UserChangedEvent($request->board));
+            }
+        }
+
         return response()->json(["success"=>true]);
     }
 
