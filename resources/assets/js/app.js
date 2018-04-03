@@ -41,13 +41,6 @@ window.Echo = new Echo({
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.filter('phone', function (phone) {
-    return phone.replace(/[^0-9]/g, '')
-                .replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
-});
-
-
-
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('inoutentry', require('./components/InoutEntry.vue'));
 Vue.component('admin', require('./components/Admin.vue'));
