@@ -5,6 +5,7 @@ use Auth;
 Use Log;
 use Illuminate\Http\Request;
 use App\Events\UserChangedEvent;
+Use App\Jobs\NotifySlack;
 
 class BoardController extends Controller
 {

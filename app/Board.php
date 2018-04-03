@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use ThreadMeUp\Slack\Client;
-Use App\Jobs\NotifySlack;
 
 class Board extends Model
 {
