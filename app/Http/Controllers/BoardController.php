@@ -63,5 +63,69 @@ class BoardController extends Controller
         return response()->json(["success"=>true]);
     }
 
+    public function slackSlashEndpoint(Request $request, $board) {
 
+        $token = $request->get("token");
+        $callingUser = $request->get("user_id");
+        $commandText = $request->get("text");
+
+        $slackUsers = $request->board->getSlackUsers();
+
+        if($commandText == "in" || $commandText == "out") {
+
+            foreach ($slackUsers as $slackUser)
+            {
+                if($slackUser->id() == $callingUser) {
+                    if($user = \App\User::where("slack_user", $callingUser)->first()) {
+                        if($commandText == "in") {
+                            $user->signIn();
+                            $response = "Welcome!";
+                        }
+                        else {
+                            $user->signOut();
+                            $response = "Goodbye!";
+                        }
+                        return response()->json([
+                            'text' => $response,
+                        ]);
+                    }
+                }
+            }
+        }
+        else {
+
+            $user = preg_match('/@\w+/', $commandText, $matches);
+            if($matches[0]) {
+
+                $targetUser = $matches[0];
+                foreach ($slackUsers as $slackUser)
+                {
+                    if($slackUser->id() == $targetUser) {
+                        if($user = \App\User::where("slack_user", $callingUser)->first()) {
+
+                            $response = $user->first_name . " " . $user->last_name . " is " . $user->signedIn()?"*in*":"*out*.\n";
+                            if($user->message() && strlen($user->message)> 1) {
+                                $response .= "Status: " . $user->message . "\n";
+                            }
+
+                            $repsonse .="Contact Info: " . $user->email . ", " . $user->phone . "\n";
+                            $response .= $user->office;
+
+
+                            return response()->json([
+                                'text' => $response,
+                            ]);
+
+
+                        }
+                    }
+                }
+            }
+        }
+        return response()->json([
+            'text' => "Err, sorry.  I got confused.",
+        ]);
+
+
+    }
 }

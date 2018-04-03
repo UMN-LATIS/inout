@@ -5,7 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
-
+use ThreadMeUp\Slack\Client;
 
 class Board extends Model
 {
@@ -73,6 +73,19 @@ class Board extends Model
             }
         }
         return false;
+    }
+
+    public function getSlackUsers() {
+        $config = [
+        'token' => $this->slack_token,
+        'team' => 'latis-team',
+        'username' => 'BOT-NAME',
+        'icon' => 'ICON', // Auto detects if it's an icon_url or icon_emoji
+        'parse' => '', // __construct function in Client.php calls for the parse parameter 
+        ];
+        $slack = new Client($config);
+        $slackUsers = $slack->users();
+        return $slackUsers;
     }
 
     public $timestamps = false;

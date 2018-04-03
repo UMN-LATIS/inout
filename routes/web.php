@@ -39,6 +39,7 @@ Route::group(['prefix' => '{board}'], function () {
 	Route::get('/login', 'BoardController@login');
     Route::get('/loginRedirect', 'BoardController@loginRedirect');
     Route::post('/slackEndpoint', 'BoardController@slackEndpoint');
+    Route::post('/slackSlashEndpoint', 'BoardController@slackSlashEndpoint');
 });
 
 

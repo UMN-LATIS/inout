@@ -3,6 +3,7 @@
 namespace App\Jobs;
 use App\User;
 use App\Board;
+use Log;
 use ThreadMeUp\Slack\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -36,18 +37,8 @@ class NotifySlack implements ShouldQueue
     public function handle()
     {
 
-        $config = [
-            'token' => $this->board->slack_token,
-            'team' => 'latis-team',
-            'username' => 'BOT-NAME',
-            'icon' => 'ICON', // Auto detects if it's an icon_url or icon_emoji
-            'parse' => '', // __construct function in Client.php calls for the parse parameter 
-        ];
-
         try {
-
-            $slack = new Client($config);
-            $slackUsers = $slack->users();
+            $slackUsers = $this->board->getSlackUsers();
             foreach ($slackUsers as $slackUser)
             {
                 if($slackUser->handle() == $this->user->slack_user) {
@@ -60,7 +51,6 @@ class NotifySlack implements ShouldQueue
     
         }
         catch (Exception $e) {
-
         }
             
     }
