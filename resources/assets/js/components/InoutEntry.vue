@@ -23,7 +23,7 @@
 						
 					</span>
 					<span v-if="editMessage" class="input-group input-group-sm">
-						<input class="form-control messageEntry" v-model="user.message" @keyup.enter="save" @keyup.esc="editMessage=false"/>
+						<input class="form-control messageEntry" v-model="user.message" @keyup.enter="save" @keyup.esc="editMessage=false" autofocus/>
 						<div class="input-group-append">
 							<button type=submit class="btn btn-primary" @click="save">Save</button>
 						</div>
