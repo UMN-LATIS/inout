@@ -77,7 +77,7 @@ class BoardController extends Controller
             {
                 if($slackUser->id() == $callingUser) {
                     if($user = \App\User::where("slack_user", $slackUser->handle())->first()) {
-                        if($commandText == "in") {
+                        if($command == "in") {
                             $user->signIn();
                             $response = "Welcome!";
                         }
