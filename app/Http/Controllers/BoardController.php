@@ -119,8 +119,9 @@ class BoardController extends Controller
                             }
 
                             $response .="Contact Info: " . $user->email . ", " . $user->phone . "\n";
-                            $response .= $user->office;
-
+                            if($user->office && strlen($user->office)> 1){
+                                $response .= $user->office;    
+                            }
 
                             return response()->json([
                                 'text' => $response,
