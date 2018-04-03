@@ -75,7 +75,7 @@ class Board extends Model
         return false;
     }
 
-    public function getSlackUsers() {
+    public function slackConnector() {
         $config = [
         'token' => $this->slack_token,
         'team' => 'latis-team',
@@ -84,7 +84,11 @@ class Board extends Model
         'parse' => '', // __construct function in Client.php calls for the parse parameter 
         ];
         $slack = new Client($config);
-        $slackUsers = $slack->users();
+        return $slack;
+    }
+
+    public function getSlackUsers() {
+        $slackUsers = $this->slackConnector()->users();
         return $slackUsers;
     }
 

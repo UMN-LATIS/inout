@@ -92,6 +92,7 @@ class BoardController extends Controller
                             $user->message = $message;
                         }
                         $user->save();
+                        $request->board->setEarlyBird();
                         event(new UserChangedEvent($request->board));
                         NotifySlack::dispatch($user, $request->board);
                         return response()->json([
