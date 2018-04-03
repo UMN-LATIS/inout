@@ -67,16 +67,16 @@ class BoardController extends Controller
 
         $token = $request->get("token");
         $callingUser = $request->get("user_id");
-        $commandText = $request->get("text");
+        $commandText = strtolower($request->get("text"));
 
         $slackUsers = $request->board->getSlackUsers();
-
-        if($commandText == "in" || $commandText == "out") {
-
+        $explodedCommand = explode(" ", $commandText);
+        $command = array_shift($explodedCommand);
+        if($command == "in" || $command == "out") {
             foreach ($slackUsers as $slackUser)
             {
                 if($slackUser->id() == $callingUser) {
-                    if($user = \App\User::where("slack_user", $callingUser)->first()) {
+                    if($user = \App\User::where("slack_user", $slackUser->handle())->first()) {
                         if($commandText == "in") {
                             $user->signIn();
                             $response = "Welcome!";
@@ -85,6 +85,13 @@ class BoardController extends Controller
                             $user->signOut();
                             $response = "Goodbye!";
                         }
+
+                        if(isset($explodedCommand[0])) {
+                            $message = implode(" ", $explodedCommand);
+                            $user->message = $message;
+                        }
+                        $user->save();
+                        event(new UserChangedEvent($request->board));
                         return response()->json([
                             'text' => $response,
                         ]);
@@ -97,18 +104,18 @@ class BoardController extends Controller
             $user = preg_match('/@\w+/', $commandText, $matches);
             if($matches[0]) {
 
-                $targetUser = $matches[0];
+                $targetUser = str_replace("@", "", $matches[0]);
                 foreach ($slackUsers as $slackUser)
                 {
-                    if($slackUser->id() == $targetUser) {
-                        if($user = \App\User::where("slack_user", $callingUser)->first()) {
-
-                            $response = $user->first_name . " " . $user->last_name . " is " . $user->signedIn()?"*in*":"*out*.\n";
-                            if($user->message() && strlen($user->message)> 1) {
+                    if(strcasecmp($slackUser->id(), $targetUser) == 0) {
+                        if($user = \App\User::where("slack_user", $slackUser->handle())->first()) {
+                            $status = $user->signedIn()?"*in*":"*out*";
+                            $response = $user->first_name . " " . $user->last_name . " is " . $status . " \n";
+                            if($user->message && strlen($user->message)> 1) {
                                 $response .= "Status: " . $user->message . "\n";
                             }
 
-                            $repsonse .="Contact Info: " . $user->email . ", " . $user->phone . "\n";
+                            $response .="Contact Info: " . $user->email . ", " . $user->phone . "\n";
                             $response .= $user->office;
 
 
