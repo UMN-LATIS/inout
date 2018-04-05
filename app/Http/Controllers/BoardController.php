@@ -102,6 +102,22 @@ class BoardController extends Controller
                 }
             }
         }
+        elseif($command = "status") {
+            $text = array();
+            foreach($this->request->board->users as $user) {
+                if($user->signedIn()) {
+                    $slackInfo = null;
+                    if($user->slackUser) {
+                        $slackInfo = " (" . $user->slackUser . ");"
+                    }
+                    $text[] = $user->first_name . " " . $user->last_name . $slackInfo;
+                }
+            }
+            return response()->json([
+                'text' => "The following members are currentl *in*:\n" . implode(" | ", $text),
+            ]);
+
+        }
         else {
 
             $user = preg_match('/@\w+/', $commandText, $matches);
