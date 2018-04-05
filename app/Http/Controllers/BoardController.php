@@ -107,7 +107,7 @@ class BoardController extends Controller
             foreach($request->board->users as $user) {
                 if($user->signedIn()) {
                     $slackInfo = null;
-                    if($user->slackUser) {
+                    if($user->slack_user) {
                         $slackInfo = " (" . $user->slack_user . ")";
                     }
                     $text[] = $user->first_name . " " . $user->last_name . $slackInfo;
