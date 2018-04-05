@@ -108,7 +108,7 @@ class BoardController extends Controller
                 if($user->signedIn()) {
                     $slackInfo = null;
                     if($user->slack_user) {
-                        $slackInfo = " (" . $user->slack_user . ")";
+                        $slackInfo = " (@" . $user->slack_user . ")";
                     }
                     $text[] = $user->first_name . " " . $user->last_name . $slackInfo;
                 }
