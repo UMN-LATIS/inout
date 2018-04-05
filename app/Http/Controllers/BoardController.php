@@ -104,7 +104,7 @@ class BoardController extends Controller
         }
         elseif($command = "status") {
             $text = array();
-            foreach($this->request->board->users as $user) {
+            foreach($request->board->users as $user) {
                 if($user->signedIn()) {
                     $slackInfo = null;
                     if($user->slackUser) {
