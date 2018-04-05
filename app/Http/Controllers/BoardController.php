@@ -108,7 +108,7 @@ class BoardController extends Controller
                 if($user->signedIn()) {
                     $slackInfo = null;
                     if($user->slackUser) {
-                        $slackInfo = " (" . $user->slackUser . ");"
+                        $slackInfo = " (" . $user->slackUser . ")";
                     }
                     $text[] = $user->first_name . " " . $user->last_name . $slackInfo;
                 }
@@ -116,7 +116,6 @@ class BoardController extends Controller
             return response()->json([
                 'text' => "The following members are currentl *in*:\n" . implode(" | ", $text),
             ]);
-
         }
         else {
 
