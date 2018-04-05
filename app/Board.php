@@ -17,7 +17,7 @@ class Board extends Model
 
 
     public function users() {
-        return $this->belongsToMany("App\User")->withPivot("is_admin","winner", "early_bird")->using('\App\BoardUserPivot');
+        return $this->belongsToMany("App\User")->withPivot("is_admin","winner", "early_bird")->using('\App\BoardUserPivot')->orderBy("last_name")->orderBy("first_name");
     }
 
     public function setWinner() {
