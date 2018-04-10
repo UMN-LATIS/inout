@@ -103,7 +103,7 @@ class BoardController extends Controller
                 }
             }
         }
-        elseif($command = "status") {
+        elseif($command == "status") {
             $text = array();
             foreach($request->board->users as $user) {
                 if($user->signedIn()) {
