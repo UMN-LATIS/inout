@@ -68,11 +68,12 @@ class BoardController extends Controller
 
         $token = $request->get("token");
         $callingUser = $request->get("user_id");
-        $commandText = strtolower($request->get("text"));
+
+        $commandText = $request->get("text");
 
         $slackUsers = $request->board->getSlackUsers();
         $explodedCommand = explode(" ", $commandText);
-        $command = array_shift($explodedCommand);
+        $command = strtolower(array_shift($explodedCommand));
         if($command == "in" || $command == "out") {
             foreach ($slackUsers as $slackUser)
             {
@@ -108,13 +109,18 @@ class BoardController extends Controller
                 if($user->signedIn()) {
                     $slackInfo = null;
                     if($user->slack_user) {
-                        $slackInfo = " (@" . $user->slack_user . ")";
+                        $slackInfo = " (<@" . $user->slack_user . ">)";
                     }
                     $text[] = $user->first_name . " " . $user->last_name . $slackInfo;
                 }
             }
             return response()->json([
                 'text' => "The following members are currentl *in*:\n" . implode(" | ", $text),
+                'attachments' => [
+                    [
+                        "text"=>"test|test|test\nTest2|test4|tesg4",
+                    ]
+                ]
             ]);
         }
         else {
