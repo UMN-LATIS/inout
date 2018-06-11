@@ -12,7 +12,7 @@
 <body>
     <div id="app" class="row">
         @yield('content')
-        }
+        
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
