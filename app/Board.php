@@ -28,7 +28,7 @@ class Board extends Model
     		}
     	}
 
-    	if(!$haveWinner) {
+    	if(!$haveWinner && count($this->users)) > 0) {
     		$winner = $this->users->random();
     		$winner->pivot->winner = Carbon::now();
     		$winner->pivot->save();
