@@ -50,7 +50,7 @@
 
 
 			<div class="home" id="app">
-				@if (Auth::user() && Auth::user()->guest_user && $board)
+				@if (Auth::user() && Auth::user()->guest_user && isset($board))
 				<p class="pull-right login">{{ HTML::linkAction('BoardController@login', "Log In", [$board->unit]) }}</p>
 				@endif
 				@yield('content')
