@@ -3123,12 +3123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UMN-LATIS/slack-sdk.git",
-                "reference": "cac383e1e488acf3e7409bf7c028390f3f48d0f6"
+                "reference": "ae106cf3057fc292b2b03b211bac69a7092dff6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UMN-LATIS/slack-sdk/zipball/cac383e1e488acf3e7409bf7c028390f3f48d0f6",
-                "reference": "cac383e1e488acf3e7409bf7c028390f3f48d0f6",
+                "url": "https://api.github.com/repos/UMN-LATIS/slack-sdk/zipball/ae106cf3057fc292b2b03b211bac69a7092dff6b",
+                "reference": "ae106cf3057fc292b2b03b211bac69a7092dff6b",
                 "shasum": ""
             },
             "require": {
@@ -3137,7 +3137,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "CoryKeane\\Slack\\": "src/"
+                    "UMNLatis\\Slack\\": "src/"
                 }
             },
             "license": [
@@ -3147,7 +3147,7 @@
             "support": {
                 "source": "https://github.com/UMN-LATIS/slack-sdk/tree/master"
             },
-            "time": "2018-07-17T14:51:32+00:00"
+            "time": "2018-07-17T15:01:05+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
