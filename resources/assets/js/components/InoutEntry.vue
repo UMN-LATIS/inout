@@ -96,10 +96,20 @@ export default {
 		}	
 	}
 
-}
+};
 </script>
 
 <style lang="css" scoped>
+
+@media only screen and (min-width: 769px) {
+	.statusRow:hover .editIconSpan {
+		display: block;
+	}
+
+	.statusRow .editIconSpan {
+		display:none;
+	}
+}
 
 .username {
 	font-weight: bold;
