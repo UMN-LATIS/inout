@@ -25,7 +25,7 @@
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^3.0",
         "razorbacks/laravel-shibboleth": "dev-master",
-        "umn-latis/slack-sdk": "dev-master"
+        "umnlatis/slack-sdk": "dev-master"
     },
     "require-dev": {
         "appzcoder/crud-generator": "^3.0",

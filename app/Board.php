@@ -5,7 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
-use ThreadMeUp\Slack\Client;
+use UMNLatis\Slack\Client;
 
 class Board extends Model
 {
