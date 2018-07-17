@@ -116,11 +116,11 @@ class BoardController extends Controller
             }
             return response()->json([
                 'text' => "The following members are currentl *in*:\n" . implode(" | ", $text),
-                'attachments' => [
-                    [
-                        "text"=>"test|test|test\nTest2|test4|tesg4",
-                    ]
-                ]
+                // 'attachments' => [
+                //     [
+                //         "text"=>"test|test|test\nTest2|test4|tesg4",
+                //     ]
+                // ]
             ]);
         }
         else {
