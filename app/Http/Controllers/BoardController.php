@@ -129,8 +129,11 @@ class BoardController extends Controller
             if($matches[0]) {
 
                 $targetUser = str_replace("@", "", $matches[0]);
+                Log::error($targetUser);
                 foreach ($slackUsers as $slackUser)
                 {
+                    Log::error($slackUser->id);
+
                     if(strcasecmp($slackUser->id(), $targetUser) == 0) {
                         if($user = \App\User::where("slack_user", $slackUser->handle())->first()) {
                             $status = $user->signedIn()?"*in*":"*out*";
