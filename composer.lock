@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99f7f4071ee7aa225f0390ce3485eb9f",
+    "content-hash": "740c746313c8e64f7e5acf8e676a15dc",
     "packages": [
         {
             "name": "deployer/deployer",
@@ -3118,17 +3118,17 @@
             "time": "2017-06-07T21:32:02+00:00"
         },
         {
-            "name": "umn-latis/slack-sdk",
+            "name": "umnlatis/slack-sdk",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/UMN-LATIS/slack-sdk.git",
-                "reference": "dfefd633d168ffcbc0d9dc3860d8a0d66ea8c2bc"
+                "reference": "cac383e1e488acf3e7409bf7c028390f3f48d0f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UMN-LATIS/slack-sdk/zipball/dfefd633d168ffcbc0d9dc3860d8a0d66ea8c2bc",
-                "reference": "dfefd633d168ffcbc0d9dc3860d8a0d66ea8c2bc",
+                "url": "https://api.github.com/repos/UMN-LATIS/slack-sdk/zipball/cac383e1e488acf3e7409bf7c028390f3f48d0f6",
+                "reference": "cac383e1e488acf3e7409bf7c028390f3f48d0f6",
                 "shasum": ""
             },
             "require": {
@@ -3147,7 +3147,7 @@
             "support": {
                 "source": "https://github.com/UMN-LATIS/slack-sdk/tree/master"
             },
-            "time": "2018-07-17T14:47:52+00:00"
+            "time": "2018-07-17T14:51:32+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5173,7 +5173,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "razorbacks/laravel-shibboleth": 20,
-        "umn-latis/slack-sdk": 20
+        "umnlatis/slack-sdk": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
