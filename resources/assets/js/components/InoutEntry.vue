@@ -10,9 +10,6 @@
 						{{ user.last_name }}, {{ user.first_name }}
 					</a>
 				</span>
-				<span v-if="(user.anyoneCanEdit | user.canEdit) & !editMessage" @click="editMessage=true" class="pull-right editIconSpan">
-							<i class="icon fa fa-pencil editIcon" title="edit"></i>
-						</span>
 			</div>
 			<div class="col-md-8 col-lg-7 col-sm-12">
 				<span v-if="user.anyoneCanEdit | user.canEdit">
@@ -35,6 +32,9 @@
 						{{ user.message }} <span class="lastUpdated">{{ user.lastUpdated }}</span>
 					</span>
 				</span>
+				<span v-if="(user.anyoneCanEdit | user.canEdit) & !editMessage" @click="editMessage=true" class="pull-right editIconSpan">
+							<i class="icon fa fa-pencil editIcon" title="edit"></i>
+						</span>
 			</div>
 			<div class="col-2 d-none d-lg-block">
 				<div class="pull-right badgeContainer" >
@@ -42,7 +42,7 @@
 					<img src="/images/winner.svg" class="img-responsive badgeIcon" v-if="user.winner==true" v-tooltip.top-center="'Today\'s random winner'"/>
 					<img src="/images/cake.svg" class="img-responsive badgeIcon" v-if="user.happyBirthday==true" v-tooltip.top-center="'Happy BirthdaY!'"/>
 				</div>
-			</div>	
+			</div>
 		</div>
 		<transition name="slide-fade">
 			<edituser v-if="show && user.canEdit" :board="board" :endpoint="endpoint" :boardadmin="boardadmin" :user.sync="user" v-on:remove="remove" v-on:save="save"></edituser>
