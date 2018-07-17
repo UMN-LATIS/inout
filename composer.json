@@ -17,6 +17,7 @@
     "type": "project",
     "require": {
         "php": ">=7.1.3",
+        "corykeane/slack-sdk": "dev-master",
         "deployer/deployer": "^6.1",
         "fideloper/proxy": "~4.0",
         "laravel/framework": "5.6.*",
@@ -24,8 +25,7 @@
         "laravelcollective/html": "^5.6",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^3.0",
-        "razorbacks/laravel-shibboleth": "dev-master",
-        "umnlatis/slack-sdk": "dev-master"
+        "razorbacks/laravel-shibboleth": "dev-master"
     },
     "require-dev": {
         "appzcoder/crud-generator": "^3.0",

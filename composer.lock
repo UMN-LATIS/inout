@@ -4,8 +4,40 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "740c746313c8e64f7e5acf8e676a15dc",
+    "content-hash": "4a12289b33af9404d11f113621f5fdb5",
     "packages": [
+        {
+            "name": "corykeane/slack-sdk",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UMN-LATIS/slack-sdk.git",
+                "reference": "c6bf13cbd5aa3a82cec97d7a08572e7c5b732c90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UMN-LATIS/slack-sdk/zipball/c6bf13cbd5aa3a82cec97d7a08572e7c5b732c90",
+                "reference": "c6bf13cbd5aa3a82cec97d7a08572e7c5b732c90",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/guzzle": "~3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CoryKeane\\Slack\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Slack SDK for PHP",
+            "support": {
+                "source": "https://github.com/UMN-LATIS/slack-sdk/tree/master"
+            },
+            "time": "2018-07-17T15:11:35+00:00"
+        },
         {
             "name": "deployer/deployer",
             "version": "v6.2.0",
@@ -3118,38 +3150,6 @@
             "time": "2017-06-07T21:32:02+00:00"
         },
         {
-            "name": "umnlatis/slack-sdk",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/UMN-LATIS/slack-sdk.git",
-                "reference": "ae106cf3057fc292b2b03b211bac69a7092dff6b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/UMN-LATIS/slack-sdk/zipball/ae106cf3057fc292b2b03b211bac69a7092dff6b",
-                "reference": "ae106cf3057fc292b2b03b211bac69a7092dff6b",
-                "shasum": ""
-            },
-            "require": {
-                "guzzle/guzzle": "~3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "UMNLatis\\Slack\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Slack SDK for PHP",
-            "support": {
-                "source": "https://github.com/UMN-LATIS/slack-sdk/tree/master"
-            },
-            "time": "2018-07-17T15:01:05+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v2.5.0",
             "source": {
@@ -5172,8 +5172,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "razorbacks/laravel-shibboleth": 20,
-        "umnlatis/slack-sdk": 20
+        "corykeane/slack-sdk": 20,
+        "razorbacks/laravel-shibboleth": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
