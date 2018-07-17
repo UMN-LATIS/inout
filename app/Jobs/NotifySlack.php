@@ -4,7 +4,7 @@ namespace App\Jobs;
 use App\User;
 use App\Board;
 use Log;
-use ThreadMeUp\Slack\Client;
+use UMNLatis\Slack\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
