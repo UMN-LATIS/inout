@@ -44,7 +44,7 @@ class NotifySlack implements ShouldQueue
                 if($this->user->slack_user && $slackUser->id() && $slackUser->id() == $this->user->slack_user) {
                     $userId = $slackUser->id();
                     $status["status_text"] = $this->user->message;
-                    // $status["status_emoji"] = "";
+                    $status["status_emoji"] = "";
                     $this->board->slackConnector()->request("users.profile.set", ["token"=>$this->board->slack_token,"profile"=>json_encode($status), "user"=>$userId])->send()->json();
                 }
             }
