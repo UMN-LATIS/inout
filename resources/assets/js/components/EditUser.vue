@@ -73,7 +73,7 @@ export default {
 	props: ['user', 'boardadmin', 'board', "endpoint"],
 	computed: {
 		checkInURL: function() {
-			return "http://" + window.location.hostname + ":" + location.port + this.endpoint + this.board + "/inout/" + this.user.id + "/in/" + this.user.userHash;
+			return "http://" + window.location.hostname + this.endpoint + this.board + "/inout/" + this.user.id + "/in/" + this.user.userHash;
 		},
 		checkOutURL: function() {
 			return "http://" + window.location.hostname+ this.endpoint + this.board + "/inout/" + this.user.id + "/out/" + this.user.userHash;
