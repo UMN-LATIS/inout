@@ -75,7 +75,7 @@ class InoutController extends Controller
         return response()->json(["success"=>true]);
     }
 
-    public function setStatus(Request $request, $board, \App\User $user, $status)
+    public function setStatus(Request $request, $board, \App\User $user, $status, $message)
     {
         // check perms
         
@@ -84,6 +84,9 @@ class InoutController extends Controller
         }
         if($status == "out") {
             $user->signOut();
+        }
+        if($status == "clear") {
+            $user->message = "";
         }
 
         
@@ -96,7 +99,7 @@ class InoutController extends Controller
 
     public function createUser(Request $request, $board)
     {
-        if(!Auth::user()->boards->find($request->board->id)->pivot->is_admin && !Auth::user()->global_admin) {
+        if(!Auth::user()->global_admin && !Auth::user()->boards->find($request->board->id)->pivot->is_admin) {
             return response()->json(["success"=>false]);
         }
 
