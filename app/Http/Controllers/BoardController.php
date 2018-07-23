@@ -51,7 +51,7 @@ class BoardController extends Controller
 
         $event = $request->json("event");
         if($event['type'] == "user_change") {
-            $username = $event['user']['name'];
+            $username = $event['user']['id'];
             $status = $event['user']['profile']['status_text'];
 
             if($user = \App\User::where("slack_user", $username)->first()) {
@@ -78,7 +78,7 @@ class BoardController extends Controller
             foreach ($slackUsers as $slackUser)
             {
                 if($slackUser->id() == $callingUser) {
-                    if($user = \App\User::where("slack_user", $slackUser->handle())->first()) {
+                    if($user = \App\User::where("slack_user", $slackUser->id())->first()) {
                         if($command == "in") {
                             $user->signIn();
                             $response = "Welcome!";
