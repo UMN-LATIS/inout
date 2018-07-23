@@ -42,7 +42,7 @@ class InoutController extends Controller
         
         event(new UserChangedEvent($request->board));
 
-        if($request->board->push_to_slack && $request->board->slack_token) {
+        if($request->board->push_to_slack && $request->board->slack_token && $user->slack_user) {
              NotifySlack::dispatch($user, $request->board);
         }
         
