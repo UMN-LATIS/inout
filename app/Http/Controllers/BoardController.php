@@ -132,7 +132,7 @@ class BoardController extends Controller
                 foreach ($slackUsers as $slackUser)
                 {
                     if(strcasecmp($slackUser->id(), $targetUser) == 0) {
-                        if($user = \App\User::where("slack_user", $slackUser->handle())->first()) {
+                        if($user = \App\User::where("slack_user", $slackUser->id())->first()) {
                             $status = $user->signedIn()?"*in*":"*out*";
                             $response = $user->first_name . " " . $user->last_name . " is " . $status . " \n";
                             if($user->message && strlen($user->message)> 1) {
