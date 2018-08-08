@@ -96,8 +96,7 @@ export default {
 	},
 	methods: {
 		getResponse(response) {
-			console.log(response);
-			return Object.values(response.data);
+			return response.data;
 		},
 		save() {
 			this.$emit('update:user', this.user);

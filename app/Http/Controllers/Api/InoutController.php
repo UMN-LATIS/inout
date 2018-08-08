@@ -31,8 +31,7 @@ class InoutController extends Controller
     }
 
     public function getTeams(Request $request, $board) {
-
-        return $request->board->users->pluck('team')->unique()->filter();
+        return array_values($request->board->users->pluck('team')->unique()->filter()->sort()->toArray());
     }
 
     // don't understand why we need the board here???
