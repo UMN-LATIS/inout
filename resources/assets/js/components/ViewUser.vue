@@ -9,6 +9,9 @@
     <div class="row" v-if="user.office">
   		<div class="col-sm-6"><b>Office:</b> {{user.office}}</div>
   	</div>
+    <div class="row" v-if="user.team">
+      <div class="col-sm-6"><b>Team:</b> {{user.team}}</div>
+    </div>
     <div class="row">
       <div class="col-sm-3"><a v-bind:href="user.calendar_link" v-if="user.calendar_link">Google Calendar</a></div>
     </div>

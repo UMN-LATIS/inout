@@ -28,6 +28,7 @@
         "moment": "^2.21.0",
         "pusher-js": "^4.2.2",
         "socket.io-client": "^2.0.4",
-        "v-tooltip": "^2.0.0-rc.31"
+        "v-tooltip": "^2.0.0-rc.31",
+        "vue2-typeahead": "^1.0.32"
     }
 }

@@ -84,7 +84,9 @@ class InoutResource extends JsonResource
             'anyoneCanEdit' => $anyoneCanEdit,
             'isAdmin' => $this->pivot->is_admin,
             "slack_user" => $this->slack_user,
+            'messageUpdate' => $this->message_updated?$this->message_updated->format("n/j"):"",
             'lastUpdated' => $this->updated_at?$this->updated_at->format("n/j"):"",
+            'team' => $this->team,
             'status' => $this->signedIn()?true:false,
             'userHash' => $userHash
         ];

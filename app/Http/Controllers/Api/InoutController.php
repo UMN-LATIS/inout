@@ -30,6 +30,11 @@ class InoutController extends Controller
         return new InoutResource($user);
     }
 
+    public function getTeams(Request $request, $board) {
+
+        return $request->board->users->pluck('team')->unique()->filter();
+    }
+
     // don't understand why we need the board here???
     public function update(Request $request, $board, \App\User $user) {
         $user->fill($request->all());

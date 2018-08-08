@@ -16,6 +16,8 @@
             	<option value="all">Everyone</option>
             	<option value="in">Only In</option>
             	<option value="out">Only Out</option>
+                <option disabled="disabled">----</option>
+                <option v-for="team in board.teams" :value="team">{{ team}}</option>
             </select>
         </div>
     	<transition-group name="fade">
@@ -59,6 +61,9 @@
     				else if(filteredList == "all") {
     					return item;
     				}
+                    else if(item.team == filteredList) {
+                        return item;
+                    }
     				
     				
     			}), [user => user.last_name.toLowerCase()]);

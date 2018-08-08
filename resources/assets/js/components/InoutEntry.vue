@@ -2,7 +2,7 @@
 	<div>
 		<div class="row statusRow align-items-center" v-bind:id="user.id">
 			<div class="col-sm-12 col-md-4 col-lg-3">
-				<p-check name="status" v-bind:class="{ 'p-locked': !(user.canEdit | user.anyoneCanEdit) }" class="p-icon p-round " color="success" off-color="danger" @change="toggleStatus" v-model="user.status" >
+				<p-check v-bind:title="user.lastUpdated" name="status" v-bind:class="{ 'p-locked': !(user.canEdit | user.anyoneCanEdit) }" class="p-icon p-round " color="success" off-color="danger" @change="toggleStatus" v-model="user.status" >
 					<i slot="extra" class="icon fa fa-check"></i>
 				</p-check>
 				<span class="username">
@@ -15,7 +15,7 @@
 				<span v-if="user.anyoneCanEdit | user.canEdit">
 					<span v-if="!editMessage">
 						<span class="messageText" v-if="user.message.length > 1" @click="editMessage = !editMessage">
-							{{ user.message}} <span class="lastUpdated">{{ user.lastUpdated }}</span>
+							{{ user.message}} <span class="lastUpdated">{{ user.messageUpdate }}</span>
 						</span>
 						
 					</span>
@@ -29,7 +29,7 @@
 				</span>
 				<span class="messageText" v-else>
 					<span v-if="user.message.length > 1">
-						{{ user.message }} <span class="lastUpdated">{{ user.lastUpdated }}</span>
+						{{ user.message }} <span class="lastUpdated">{{ user.messageUpdate }}</span>
 					</span>
 				</span>
 				<span v-if="(user.anyoneCanEdit | user.canEdit) & !editMessage" @click="editMessage=true" class="pull-right editIconSpan">

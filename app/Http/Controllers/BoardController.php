@@ -27,6 +27,9 @@ class BoardController extends Controller
             }    
         }
 
+        $request->board->teams = $request->board->users->pluck('team')->unique()->filter();
+
+
         return view('board.index', ['board'=>$request->board, 'boardAdmin'=>$boardAdmin]);
     }
 

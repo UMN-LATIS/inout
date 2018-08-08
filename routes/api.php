@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => '{board}'], function () {
 	Route::model('user',\App\User::class);
+	Route::get('/inout/getTeams', 'Api\InoutController@getTeams');
 	Route::resource('inout', 'Api\InoutController', ['parameters' => ['inout'=>'user']]);
 	Route::put('/inout/{user}/toggleStatus', 'Api\InoutController@toggleStatus');
 	Route::get('/inout/{user}/{status}/{secret}', 'Api\InoutController@setStatus');

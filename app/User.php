@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'umndid', 'office','phone','calendar_link','sign_in','sign_out','message', "birthday","slack_user"
+        'first_name', 'last_name', 'email', 'umndid', 'office','phone','calendar_link','sign_in','sign_out','message', "birthday","slack_user", "team"
     ];
 
     /**
@@ -34,6 +34,7 @@ class User extends Authenticatable
         'sign_in',
         'sign_out',
         'birthday',
+        "message_updated"
     ];
 
     public function boards() {
@@ -68,5 +69,9 @@ class User extends Authenticatable
         $this->sign_out = Carbon::now();
     }
 
+    public function setMessageAttribute($value) {
+        $this->attributes['message'] = $value;
+        $this->message_updated = Carbon::now();
+    }
 
 }

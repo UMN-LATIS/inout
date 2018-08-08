@@ -36,6 +36,15 @@
 					<input type="text" class="form-control" id="slackUser" placeholder="Slack User Name" v-model.lazy="user.slack_user">
 				</div>
 			</div>
+			<div class="form-row">
+				<div class="col-sm-3">
+					 <TypeAhead
+      :src="teamsURL"
+      :getResponse="getResponse" v-model.lazy="user.team" placeholder="Team"
+    ></TypeAhead>
+					<!-- <input type="text" class="form-control" id="team" placeholder="Team" v-model.lazy="user.team"> -->
+				</div>
+			</div>
 			<div class="form-row form-inline">
 					<label for="input" class="col-sm-2 control-label">Check-In URL:</label>
 					<div class="col-sm-4">
@@ -67,11 +76,17 @@
 
 <script>
 
+import TypeAhead from 'vue2-typeahead';
+
 export default {
 
 	name: 'EditUser',
 	props: ['user', 'boardadmin', 'board', "endpoint"],
+	components: { TypeAhead},
 	computed: {
+		teamsURL: function() {
+			return this.endpoint + this.board + "/inout/getTeams";
+		},
 		checkInURL: function() {
 			return "http://" + window.location.hostname + this.endpoint + this.board + "/inout/" + this.user.id + "/in/" + this.user.userHash;
 		},
@@ -80,6 +95,10 @@ export default {
 		}
 	},
 	methods: {
+		getResponse(response) {
+			console.log(response);
+			return Object.values(response.data);
+		},
 		save() {
 			this.$emit('update:user', this.user);
 			this.$emit('save');

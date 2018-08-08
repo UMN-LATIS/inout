@@ -47,6 +47,8 @@ Vue.component('admin', require('./components/Admin.vue'));
 Vue.component('edituser', require('./components/EditUser.vue'));
 Vue.component('viewuser', require('./components/ViewUser.vue'));
 
+
+
 import PrettyCheckbox from 'pretty-checkbox-vue';
 Vue.use(PrettyCheckbox);
 
