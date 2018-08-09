@@ -79,7 +79,7 @@ class InoutController extends Controller
         return response()->json(["success"=>true]);
     }
 
-    public function setStatus(Request $request, $board, \App\User $user, $status, $message)
+    public function setStatus(Request $request, $board, \App\User $user, $status, $secret, $message=null)
     {
         // check perms
         
@@ -93,6 +93,9 @@ class InoutController extends Controller
             $user->message = "";
         }
 
+        if($message) {
+            $user->message = urldecode($message);
+        }
         
         $user->save();
 
