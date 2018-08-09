@@ -88,10 +88,10 @@ export default {
 			return this.endpoint + this.board + "/inout/getTeams";
 		},
 		checkInURL: function() {
-			return "http://" + window.location.hostname + this.endpoint + this.board + "/inout/" + this.user.id + "/in/" + this.user.userHash;
+			return "https://" + window.location.hostname + this.endpoint + this.board + "/inout/" + this.user.id + "/in/" + this.user.userHash;
 		},
 		checkOutURL: function() {
-			return "http://" + window.location.hostname+ this.endpoint + this.board + "/inout/" + this.user.id + "/out/" + this.user.userHash;
+			return "https://" + window.location.hostname+ this.endpoint + this.board + "/inout/" + this.user.id + "/out/" + this.user.userHash;
 		}
 	},
 	methods: {
