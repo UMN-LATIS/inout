@@ -40,7 +40,7 @@
 				<div class="pull-right badgeContainer" >
 					<img src="/images/earlybird.svg" class="img-responsive badgeIcon" v-if="user.earlyBird==true" v-tooltip.top-center="'Early Bird!'"/>
 					<img src="/images/winner.svg" class="img-responsive badgeIcon" v-if="user.winner==true" v-tooltip.top-center="'Today\'s random winner'"/>
-					<img src="/images/cake.svg" class="img-responsive badgeIcon" v-if="user.happyBirthday==true" v-tooltip.top-center="'Happy BirthdaY!'"/>
+					<img src="/images/cake.svg" class="img-responsive badgeIcon" v-if="user.happyBirthday==true" v-tooltip.top-center="'Happy Birthday!'"/>
 				</div>
 			</div>
 		</div>
