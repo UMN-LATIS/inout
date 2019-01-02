@@ -54,7 +54,7 @@ class BoardController extends Controller
         $event = $request->json("event");
         if($event['type'] == "user_change") {
             $username = $event['user']['id'];
-            $status = $event['user']['profile']['status_text'];
+            $status = html_entity_decode($event['user']['profile']['status_text']);
 
             if($user = \App\User::where("slack_user", $username)->first()) {
                 $user->message = $status;

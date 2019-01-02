@@ -14,3 +14,5 @@ yarn-error.log
 .env.dusk.local
 .phpintel
 public/mix-manifest.json
+.phpintel
+/.DS_Store
