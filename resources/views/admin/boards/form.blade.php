@@ -1,20 +1,20 @@
 <div class="form-group {{ $errors->has('unit') ? 'has-error' : ''}}">
     <label for="unit" class="col-md-4 control-label">{{ 'Unit' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="unit" type="text" id="unit" value="{{ $board->unit or ''}}" >
+        <input class="form-control" name="unit" type="text" id="unit" value="{{ $board->unit ?? ''}}" >
         {!! $errors->first('unit', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('public_title') ? 'has-error' : ''}}">
     <label for="public_title" class="col-md-4 control-label">{{ 'Public Title' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="public_title" type="text" id="public_title" value="{{ $board->public_title or ''}}" >
+        <input class="form-control" name="public_title" type="text" id="public_title" value="{{ $board->public_title ?? ''}}" >
         {!! $errors->first('public_title', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group {{ $errors->has('announcement_text') ? 'has-error' : ''}}">
     <label for="announcement_text" class="col-md-4 control-label">{{ 'Announcement Text' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="announcement_text" type="text" id="announcement_text" value="{{ $board->announcement_text or ''}}" >
+        <input class="form-control" name="announcement_text" type="text" id="announcement_text" value="{{ $board->announcement_text ?? ''}}" >
         {!! $errors->first('announcement_text', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -32,7 +32,7 @@
 <div class="form-group {{ $errors->has('slack_token') ? 'has-error' : ''}}">
     <label for="slack_token" class="col-md-4 control-label">{{ 'Slack Token' }}</label>
     <div class="col-md-6">
-        <input class="form-control" name="slack_token" type="text" id="slack_token" value="{{ $board->slack_token or ''}}" >
+        <input class="form-control" name="slack_token" type="text" id="slack_token" value="{{ $board->slack_token ?? ''}}" >
         {!! $errors->first('slack_token', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -62,6 +62,6 @@
 
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">
-        <input class="btn btn-primary" type="submit" value="{{ $submitButtonText or 'Create' }}">
+        <input class="btn btn-primary" type="submit" value="{{ $submitButtonText ?? 'Create' }}">
     </div>
 </div>
