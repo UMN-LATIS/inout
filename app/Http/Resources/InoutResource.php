@@ -88,7 +88,8 @@ class InoutResource extends JsonResource
             'lastUpdated' => $this->updated_at?$this->updated_at->format("n/j"):"",
             'team' => $this->team,
             'status' => $this->signedIn()?true:false,
-            'userHash' => $userHash
+            'userHash' => $userHash,
+            'wfh' => $this->wfh
         ];
 
     }

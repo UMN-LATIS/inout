@@ -5,6 +5,10 @@
 				<p-check v-bind:title="user.lastUpdated" name="status" v-bind:class="{ 'p-locked': !(user.canEdit | user.anyoneCanEdit) }" class="p-icon p-round " color="success" off-color="danger" @change="toggleStatus" v-model="user.status" >
 					<i slot="extra" class="icon fa fa-check"></i>
 				</p-check>
+				<span>
+					<i class="fa fa-home fa-lg" v-bind:class="{ 'fa-disabled': !user.status || !user.wfh }" aria-hidden="true"  @click="setWorkFromHome(true)" title="Working from Home"></i>
+					<i class="fa fa-building fa-lg" v-bind:class="{ 'fa-disabled': !user.status || user.wfh }" aria-hidden="true" @click="setWorkFromHome(false)" title="Working from Campus"></i>
+				</span>
 				<span class="username">
 					<a href="" class="userClick" v-on:click.prevent="show = !show">
 						{{ user.last_name }}, {{ user.first_name }}
@@ -66,6 +70,13 @@ export default {
 		}
 	},
 	methods: {
+		setWorkFromHome (status) {
+			if(!this.user.status || (!this.user.anyoneCanEdit && !this.user.canEdit)) {
+				return
+			}
+			this.user.wfh = status;
+			this.save();
+		},
 		toggleStatus () {
 			axios.put(this.endpoint + this.board + "/inout/" + this.user.id + "/toggleStatus", this.user)
 			.then(({data}) => {
@@ -100,6 +111,15 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.fa-home, .fa-building {
+	cursor: pointer;
+}
+
+
+.fa-disabled {
+  opacity: 0.3;
+}
 
 @media only screen and (min-width: 769px) {
 	.statusRow:hover .editIconSpan {

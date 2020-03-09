@@ -41,11 +41,11 @@ window.Echo = new Echo({
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.component('users', require('./components/Users.vue'));
-Vue.component('inoutentry', require('./components/InoutEntry.vue'));
-Vue.component('admin', require('./components/Admin.vue'));
-Vue.component('edituser', require('./components/EditUser.vue'));
-Vue.component('viewuser', require('./components/ViewUser.vue'));
+Vue.component('users', require('./components/Users.vue').default);
+Vue.component('inoutentry', require('./components/InoutEntry.vue').default);
+Vue.component('admin', require('./components/Admin.vue').default);
+Vue.component('edituser', require('./components/EditUser.vue').default);
+Vue.component('viewuser', require('./components/ViewUser.vue').default);
 
 
 
