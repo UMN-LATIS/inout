@@ -6,8 +6,8 @@
 					<i slot="extra" class="icon fa fa-check"></i>
 				</p-check>
 				<span>
-					<i class="fa fa-home fa-lg" v-bind:class="{ 'fa-disabled': !user.status || !user.wfh }" aria-hidden="true"  @click="setWorkFromHome(true)" title="Working from Home"></i>
 					<i class="fa fa-building fa-lg" v-bind:class="{ 'fa-disabled': !user.status || user.wfh }" aria-hidden="true" @click="setWorkFromHome(false)" title="Working from Campus"></i>
+					<i class="fa fa-home fa-lg" v-bind:class="{ 'fa-disabled': !user.status || !user.wfh }" aria-hidden="true"  @click="setWorkFromHome(true)" title="Working from Home"></i>
 				</span>
 				<span class="username">
 					<a href="" class="userClick" v-on:click.prevent="show = !show">
