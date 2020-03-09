@@ -18,7 +18,7 @@ class AuthIfNecessary
      */
     public function handle($request, Closure $next)
     {
-        if(stristr($request->requestUri, "slack", )) {
+        if(stristr($request->requestUri, "slack")) {
             return $next($request);
         }
         if($request->board && is_object($request->board) && !$request->board->public) {       
